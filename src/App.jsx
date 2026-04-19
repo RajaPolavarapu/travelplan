@@ -281,7 +281,13 @@ export default function App() {
               className="relative rounded-[2.5rem] overflow-hidden min-h-[420px] sm:min-h-[500px] shadow-2xl border border-white/5 bg-slate-900 cursor-pointer group"
               onClick={() => setPage('plan')}
             >
-              <SafeImage src={activeDay.image} alt={activeDay.title} className="absolute inset-0 w-full h-full brightness-[0.25] group-hover:brightness-40 transition-all duration-700" />
+              <div className="relative h-80 w-full overflow-hidden">
+                <SafeImage
+                  src={activeDay.image}
+                  alt={activeDay.title}
+                  className="absolute inset-0 w-full h-full object-cover brightness-[0.25] group-hover:brightness-40 transition-all duration-700"
+                />
+              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
 
               <div className="relative z-10 h-full w-full p-6 sm:p-12 flex flex-col justify-between gap-y-8 text-left">
@@ -586,7 +592,8 @@ export default function App() {
             <div className="bg-slate-900 rounded-[4rem] shadow-2xl overflow-hidden border border-white/5">
               <div className="bg-slate-950 p-10 text-left text-white border-b border-white/5">
                 <p className="text-[10px] opacity-30 tracking-[0.5em] mb-2 font-black uppercase">VERIFIED MISSION ID</p>
-                <h2 className="text-3xl tracking-tighter font-black uppercase leading-none">PILGRIM<br />MANIFEST</h2>
+                <h2 className="text-3xl tracking-tighter font-black uppercase leading-none">Yatra Registration
+                  <br />INFORMATION</h2>
               </div>
               <div className="p-8 space-y-12">
                 <div className="flex justify-between items-end border-b border-white/5 pb-8 text-left">
