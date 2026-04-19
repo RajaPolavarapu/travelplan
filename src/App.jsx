@@ -272,7 +272,7 @@ export default function App() {
         {page === 'home' && (
           <div className="space-y-10 animate-in fade-in duration-500 text-left">
             <div className="space-y-2">
-              <h1 className="text-4xl sm:text-7xl font-black leading-tight text-white uppercase">Sandhya && Raja <br /><span className="text-orange-600">CHARDHAM 2026</span></h1>
+              <h1 className="text-4xl sm:text-7xl font-black leading-tight text-white uppercase">Sandhya & Raja <br /><span className="text-orange-600">CHARDHAM 2026</span></h1>
               <p className="text-[10px] text-slate-500 font-black tracking-widest leading-relaxed">TACTICAL PILGRIMAGE CONTROL • TRAVEL VALUT</p>
             </div>
 
@@ -281,7 +281,7 @@ export default function App() {
               className="relative rounded-[2.5rem] overflow-hidden min-h-[420px] sm:min-h-[500px] shadow-2xl border border-white/5 bg-slate-900 cursor-pointer group"
               onClick={() => setPage('plan')}
             >
-              <div className="relative h-80 w-full overflow-hidden">
+              <div className="relative h-40 w-full overflow-hidden">
                 <SafeImage
                   src={activeDay.image}
                   alt={activeDay.title}
