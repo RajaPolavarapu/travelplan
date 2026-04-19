@@ -3,18 +3,6 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, setDoc, onSnapshot, collection } from 'firebase/firestore';
 
-// --- VERIFIED ASSETS ---
-const IMAGES = {
-  hero: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop",
-  rishikesh: "https://images.unsplash.com/photo-1598375607441-8240a8246572?q=80&w=1000&auto=format&fit=crop",
-  sersi: "https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?q=80&w=1000&auto=format&fit=crop",
-  kedarnath: "https://images.unsplash.com/photo-1624365738600-093a64939228?q=80&w=1000&auto=format&fit=crop",
-  badrinath: "https://images.unsplash.com/photo-1621508651038-f9479ca4658a?q=80&w=1000&auto=format&fit=crop",
-  yamunotri: "https://images.unsplash.com/photo-1617833075249-1660f7858c70?q=80&w=1000&auto=format&fit=crop",
-  gangotri: "https://images.unsplash.com/photo-1617653202545-931490e8d7e7?q=80&w=1000&auto=format&fit=crop",
-  dehradun: "https://images.unsplash.com/photo-1586227740560-8cf2732c1531?q=80&w=1000&auto=format&fit=crop",
-  qrPlaceholder: "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=652173010478"
-};
 
 const apiKey = "AIzaSyDWODs0ZBtHeSDFgRWDsz1JI-OyCngoYfw";
 const firebaseConfig = typeof __firebase_config !== 'undefined'
@@ -29,6 +17,19 @@ const firebaseConfig = typeof __firebase_config !== 'undefined'
     measurementId: "G-T14NW8C272"
   };
 
+
+// --- VERIFIED ASSETS ---
+const IMAGES = {
+  hero: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop",
+  rishikesh: "https://images.unsplash.com/photo-1598375607441-8240a8246572?q=80&w=1000&auto=format&fit=crop",
+  sersi: "https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?q=80&w=1000&auto=format&fit=crop",
+  kedarnath: "https://images.unsplash.com/photo-1624365738600-093a64939228?q=80&w=1000&auto=format&fit=crop",
+  badrinath: "https://images.unsplash.com/photo-1621508651038-f9479ca4658a?q=80&w=1000&auto=format&fit=crop",
+  yamunotri: "https://images.unsplash.com/photo-1617833075249-1660f7858c70?q=80&w=1000&auto=format&fit=crop",
+  gangotri: "https://images.unsplash.com/photo-1617653202545-931490e8d7e7?q=80&w=1000&auto=format&fit=crop",
+  dehradun: "https://images.unsplash.com/photo-1586227740560-8cf2732c1531?q=80&w=1000&auto=format&fit=crop",
+  qrPlaceholder: "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=652173010478"
+};
 
 const REG_DATA = {
   no: "652173010478",
@@ -50,6 +51,7 @@ const REG_DATA = {
     {
       name: "SANDHYA RANI SATYAVARAPU",
       id: "PAX-02",
+      age: 32,
       idType: "AADHAR",
       idNo: "XXXX-XXXX-4412",
       gender: "FEMALE",
@@ -79,7 +81,7 @@ const TICKETS = [
     toTerminal: "DED (JOLLY GRANT)",
     bookingId: "NF7AKPSX64440584043",
     baggage: { cabin: "7 KGS", checkin: "15 KGS" },
-    theme: { bg: "bg-indigo-50/70", border: "border-indigo-600/10", text: "text-indigo-900", accent: "text-indigo-600", header: "bg-indigo-600" },
+    theme: { bg: "bg-indigo-950/40", border: "border-indigo-500/30", text: "text-indigo-100", accent: "text-indigo-400", header: "bg-indigo-600" },
     lounges: [
       { name: "ENCALM LOUNGE", loc: "HYD T1 (DEPARTURE)", rating: "4.5", facilities: ["WiFi", "Buffet", "AC", "Charging", "Flight Radar"] }
     ]
@@ -90,7 +92,7 @@ const TICKETS = [
     route: "DED - VTZ",
     date: "28 MAY 2026",
     baggage: { cabin: "7 KGS", checkin: "15 KGS" },
-    theme: { bg: "bg-red-50/70", border: "border-red-600/10", text: "text-red-900", accent: "text-red-600", header: "bg-red-600" },
+    theme: { bg: "bg-red-950/40", border: "border-red-500/30", text: "text-red-100", accent: "text-red-400", header: "bg-red-600" },
     lounges: [
       { name: "BIRD LOUNGE", loc: "DED MAIN (DEP)", rating: "3.8", facilities: ["WiFi", "Comfort Seats", "Gourmet Snacks"] },
       { name: "ENCALM T3", loc: "DEL T3 (ARR/TRANSIT)", rating: "4.3", facilities: ["Showers", "Sleep Pods", "Full Buffet", "Bar"] },
@@ -114,13 +116,12 @@ const EXPERT_ITINERARY = [
 ];
 
 const MASTER_ROADMAP = [
-  { day: 1, route: "DED AIRPORT → RISHIKESH", dist: "20-25 KM", time: "1.5 HOURS", detail: "Arrival at DED. Direct transfer to Rishikesh for evening Ganga Aarti.", stayLoc: "Rishikesh", start: "Jolly Grant Airport", end: "Triveni Ghat, Rishikesh" },
-  { day: 2, route: "RISHIKESH → SERSI", dist: "190-200 KM", time: "7–9 HOURS", detail: "Scenic mountain drive via Devprayag and Rudraprayag.", stayLoc: "Sersi", start: "Rishikesh", end: "Sersi, Uttarakhand" },
-  { day: 3, route: "SERSI → KEDARNATH → SERSI", dist: "7 MIN HELI", time: "HALF DAY", detail: "Helicopter to Kedarnath. Complete Darshan and return to Sersi.", stayLoc: "Sersi", start: "Sersi Heliport", end: "Kedarnath Temple" },
-  { day: 4, route: "SERSI → BADRINATH", dist: "180-190 KM", time: "7–9 HOURS", detail: "Drive via Ukhimath and Joshimath. Evening Darshan at Badrinath Temple.", stayLoc: "Badrinath", start: "Sersi, Uttarakhand", end: "Badrinath Temple" },
-  { day: 5, route: "BADRINATH → YAMUNOTRI → BARKOT", dist: "240-260 KM", time: "10–12 HOURS", detail: "Drive to Janki Chatti, trek to Yamunotri, descend to Barkot.", stayLoc: "Barkot", start: "Badrinath Temple", end: "Barkot, Uttarakhand" },
-  { day: 6, route: "BARKOT → GANGOTRI → DEHRADUN", dist: "350+ KM", time: "12–14 HOURS", detail: "Drive to Gangotri for Darshan, then return to Dehradun.", stayLoc: "Dehradun", start: "Barkot, Uttarakhand", end: "Dehradun, Uttarakhand" },
-  { day: 7, route: "DEHRADUN → DED AIRPORT", dist: "25-30 KM", time: "1 HOUR", detail: "Reach Jolly Grant Airport by 10:30 AM for VTZ flight.", stayLoc: "Dehradun", start: "Dehradun, Uttarakhand", end: "Jolly Grant Airport" }
+  { day: 1, route: "DED → RISHIKESH", dist: "25 KM", time: "1.5H", detail: "Arrival and Ganga Aarti.", start: "Jolly Grant", end: "Triveni Ghat" },
+  { day: 2, route: "RISHI → SERSI", dist: "200 KM", time: "8H", detail: "Scenic mountain drive.", start: "Rishikesh", end: "Sersi" },
+  { day: 3, route: "SERSI ↔ KEDAR", dist: "HELI", time: "5H", detail: "Shiva Temple mission.", start: "Sersi", end: "Kedarnath" },
+  { day: 4, route: "SERSI → BADRI", dist: "190 KM", time: "8H", detail: "Vishnu Temple darshan.", start: "Sersi", end: "Badrinath" },
+  { day: 5, route: "BADRI → BARKOT", dist: "260 KM", time: "11H", detail: "Yamuna valley transit.", start: "Badrinath", end: "Barkot" },
+  { day: 6, route: "BARKOT → DED", dist: "350 KM", time: "13H", detail: "Gangotri and return.", start: "Barkot", end: "Dehradun" }
 ];
 
 // --- GEMINI API ---
@@ -130,9 +131,8 @@ const callGeminiAPI = async (prompt, systemInstruction = "", isJson = false) => 
     systemInstruction: { parts: [{ text: systemInstruction }] }
   };
   if (isJson) payload.generationConfig = { responseMimeType: "application/json" };
-
-  const delays = [1000, 2000, 4000, 8000, 16000];
-  for (let i = 0; i < 5; i++) {
+  const delays = [1000, 2000, 4000];
+  for (let i = 0; i < 3; i++) {
     try {
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
         method: 'POST',
@@ -143,7 +143,6 @@ const callGeminiAPI = async (prompt, systemInstruction = "", isJson = false) => 
       const result = await response.json();
       return isJson ? JSON.parse(result.candidates?.[0]?.content?.parts?.[0]?.text) : result.candidates?.[0]?.content?.parts?.[0]?.text;
     } catch (e) {
-      if (i === 4) return null;
       await new Promise(r => setTimeout(r, delays[i]));
     }
   }
@@ -159,8 +158,6 @@ const SafeImage = ({ src, alt, className }) => {
     </div>
   );
 };
-
-const LoadingPulse = () => <div className="flex gap-1"><div className="w-1.5 h-1.5 bg-orange-600 rounded-full animate-bounce"></div><div className="w-1.5 h-1.5 bg-orange-600 rounded-full animate-bounce [animation-delay:-0.15s]"></div><div className="w-1.5 h-1.5 bg-orange-600 rounded-full animate-bounce [animation-delay:-0.3s]"></div></div>;
 
 export default function App() {
   const [page, setPage] = useState('home');
@@ -179,7 +176,6 @@ export default function App() {
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
-
     const initAuth = async () => {
       if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
         await signInWithCustomToken(auth, __initial_auth_token);
@@ -201,7 +197,7 @@ export default function App() {
         if (data.tasks) setCompletedTasks(data.tasks);
       }
     });
-  }, [user]);
+  }, [user, appId]);
 
   const saveProgress = async (payload) => {
     if (!user) return;
@@ -209,7 +205,6 @@ export default function App() {
     await setDoc(doc(db, 'artifacts', appId, 'users', user.uid, 'vault', 'data'), payload, { merge: true });
   };
 
-  // --- ACTIONS ---
   const toggleTask = (key) => {
     const next = { ...completedTasks, [key]: !completedTasks[key] };
     setCompletedTasks(next);
@@ -218,7 +213,7 @@ export default function App() {
 
   const getDayIntel = async () => {
     setLoadingIntel(true);
-    const res = await callGeminiAPI(`Tactical briefing for: ${activeDay.title}. Risk: ${activeDay.risk}. Plan: ${activeDay.plan}. 2 sentences: 1 spiritual, 1 survival.`, "Tactical Guide.");
+    const res = await callGeminiAPI(`Tactical briefing for: ${activeDay.title}. Plan: ${activeDay.plan}. 2 sentences: 1 spiritual, 1 survival.`, "Tactical Guide.");
     if (res) setAiIntel(p => ({ ...p, [selectedDay]: res }));
     setLoadingIntel(false);
   };
@@ -226,70 +221,69 @@ export default function App() {
   const searchExplore = async () => {
     if (!explore.query) return;
     setExplore(p => ({ ...p, loading: true }));
-    const res = await callGeminiAPI(`Budget spots in ${explore.query}. JSON: {"spots": [{"name": "", "rating": "", "desc": ""}]}`, "Concierge", true);
+    const res = await callGeminiAPI(`Spots in ${explore.query}. JSON: {"spots": [{"name": "", "rating": "", "desc": ""}]}`, "Concierge", true);
     setExplore(p => ({ ...p, results: res?.spots || [], loading: false }));
   };
 
   return (
-    <div className="min-h-screen bg-[#FBF9F7] text-slate-900 font-sans uppercase font-black selection:bg-orange-100 pb-32">
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans uppercase font-black selection:bg-orange-600/30 pb-40 transition-colors duration-500 overflow-x-hidden">
 
       {/* HEADER */}
-      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-xl z-50 border-b border-slate-100 px-6 py-4 flex justify-between items-center">
+      <nav className="fixed top-0 w-full bg-slate-900/90 backdrop-blur-xl z-[150] border-b border-white/5 px-4 py-3 flex justify-between items-center h-16">
         <div className="flex items-center gap-2 cursor-pointer" onClick={() => setPage('home')}>
-          <div className="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center text-white">
+          <div className="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center text-white shadow-lg">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M12 22V4M6 8C6 14 18 14 18 8M6 8V6M18 8V6M12 4V2" /></svg>
           </div>
-          <span className="text-xl tracking-tighter text-slate-900">VAULT</span>
+          <span className="text-lg tracking-tighter text-white">VAULT</span>
         </div>
-        <div className="flex gap-4 text-[9px] text-slate-400 font-black">
-          <span className="text-orange-600">MISSION: {REG_DATA.no}</span>
-          <span>{user?.uid?.slice(0, 6) || '---'}</span>
+        <div className="flex flex-col items-end text-[8px] text-slate-500 font-black">
+          <span className="text-orange-500">MISSION: {REG_DATA.no}</span>
+          <span className="opacity-50">{user?.uid?.slice(0, 6) || 'SECURE'}</span>
         </div>
       </nav>
 
-      <main className="pt-24 max-w-4xl mx-auto px-4">
+      <main className="pt-20 px-4 max-w-4xl mx-auto space-y-8">
 
         {/* HOME VIEW */}
         {page === 'home' && (
-          <div className="space-y-8 animate-in fade-in duration-500">
+          <div className="space-y-10 animate-in fade-in duration-500">
             <div className="space-y-2 text-center md:text-left">
-              <h1 className="text-7xl font-black leading-[0.85] tracking-tighter text-slate-900 uppercase">CHARDHAM<br /><span className="text-orange-600">MISSION 2026</span></h1>
-              <p className="text-[10px] text-slate-400 normal-case font-medium uppercase font-black">TACTICAL PILGRIMAGE CONTROL FOR RAJA & SANDHYA RANI</p>
+              <h1 className="text-4xl sm:text-7xl font-black leading-[0.85] tracking-tighter text-white uppercase">CHARDHAM<br /><span className="text-orange-600">MISSION 2026</span></h1>
+              <p className="text-[10px] text-slate-500 normal-case font-medium uppercase font-black tracking-widest">TACTICAL PILGRIMAGE CONTROL • RAJA & SANDHYA RANI</p>
             </div>
 
-            {/* ENHANCED ACTIVE SECTOR CARD */}
-            <div className="relative rounded-[2.5rem] overflow-hidden aspect-[16/10] sm:aspect-video shadow-2xl cursor-pointer group" onClick={() => setPage('plan')}>
-              <SafeImage src={activeDay.image} alt={activeDay.title} className="w-full h-full brightness-50 group-hover:brightness-75 transition-all duration-700 group-hover:scale-105" />
-
-              <div className="absolute top-6 left-6 flex flex-col gap-1">
-                <p className="text-[10px] opacity-70 text-white tracking-[0.3em] font-black uppercase">ACTIVE SECTOR SELECTION</p>
-                <div className="flex gap-2 items-center">
-                  <span className="bg-orange-600 text-white px-3 py-1 rounded-lg text-[9px] font-black uppercase">DAY {activeDay.day}</span>
-                  <span className="bg-white/10 backdrop-blur text-white px-3 py-1 rounded-lg text-[9px] border border-white/20 font-black tracking-widest uppercase">{activeDay.date}</span>
+            {/* SECTOR CARD */}
+            <div className="relative rounded-[2rem] overflow-hidden aspect-[16/10] sm:aspect-video shadow-2xl border border-white/5 group" onClick={() => setPage('plan')}>
+              <SafeImage src={activeDay.image} alt={activeDay.title} className="w-full h-full brightness-[0.35] group-hover:brightness-50 transition-all duration-700 group-hover:scale-105" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex flex-col justify-end p-6 sm:p-10 text-white">
+                <div className="absolute top-6 left-6 flex flex-col gap-1">
+                  <p className="text-[10px] opacity-50 text-white tracking-[0.3em] font-black uppercase">ACTIVE SECTOR</p>
+                  <div className="flex gap-2 items-center">
+                    <span className="bg-orange-600 text-white px-3 py-1 rounded-lg text-[9px] font-black uppercase shadow-lg shadow-orange-600/20">DAY {activeDay.day}</span>
+                    <span className="bg-white/10 backdrop-blur text-white px-3 py-1 rounded-lg text-[9px] border border-white/20 font-black tracking-widest uppercase">{activeDay.date}</span>
+                  </div>
                 </div>
-              </div>
 
-              <div className="absolute top-6 right-6">
-                <div className={`px-4 py-2 rounded-2xl border text-[9px] font-black tracking-widest shadow-xl backdrop-blur-xl ${activeDay.risk === 'EXTREME' || activeDay.risk === 'CRITICAL' ? 'bg-red-600/90 border-red-500 text-white' : 'bg-white/90 border-slate-200 text-slate-900'}`}>
-                  RISK: {activeDay.risk}
+                <div className="absolute top-6 right-6">
+                  <div className={`px-4 py-2 rounded-2xl border text-[9px] font-black tracking-widest shadow-xl backdrop-blur-xl ${activeDay.risk === 'EXTREME' || activeDay.risk === 'CRITICAL' ? 'bg-red-600/80 border-red-500/50 text-white' : 'bg-slate-800/80 border-white/10 text-slate-100'}`}>
+                    RISK: {activeDay.risk}
+                  </div>
                 </div>
-              </div>
 
-              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end gap-4 text-white">
                 <div className="space-y-1">
-                  <h2 className="text-4xl sm:text-6xl tracking-tighter uppercase leading-none font-black">{activeDay.title}</h2>
+                  <h2 className="text-3xl sm:text-6xl tracking-tighter uppercase leading-none font-black">{activeDay.title}</h2>
                   <div className="flex gap-4 items-center opacity-60 text-[10px] tracking-widest font-black uppercase">
                     <span>DUR: {activeDay.dur}</span>
-                    <span className="w-1.5 h-1.5 bg-orange-600 rounded-full"></span>
+                    <span className="w-1.5 h-1.5 bg-orange-600 rounded-full shadow-[0_0_8px_rgba(234,88,12,0.8)]"></span>
                     <span>DHAM: {activeDay.dham}</span>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 border-t border-white/10 pt-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 border-t border-white/10 pt-4 mt-4">
                   {(activeDay.timeline || []).slice(0, 3).map((item, idx) => (
                     <div key={idx} className="flex items-center gap-3">
-                      <span className="text-[9px] text-orange-400 font-black min-w-[40px] uppercase">{item.time}</span>
-                      <span className="text-[10px] tracking-tight truncate font-black uppercase">{item.task}</span>
+                      <span className="text-[9px] text-orange-500 font-black min-w-[40px] uppercase">{item.time}</span>
+                      <span className="text-[10px] tracking-tight truncate font-black uppercase text-white">{item.task}</span>
                     </div>
                   ))}
                 </div>
@@ -297,16 +291,16 @@ export default function App() {
             </div>
 
             {/* DAY SELECTOR QUICK ACTIONS */}
-            <div className="space-y-3">
-              <p className="text-[10px] tracking-widest text-slate-400 font-black uppercase">SWITCH MISSION DAY</p>
-              <div className="flex gap-2 overflow-x-auto pb-4 no-scrollbar">
+            <div className="space-y-4">
+              <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase">SWITCH MISSION DAY</p>
+              <div className="flex gap-3 overflow-x-auto pb-4 no-scrollbar -mx-2 px-2 snap-x">
                 {EXPERT_ITINERARY.map((day, idx) => (
                   <button
                     key={idx}
                     onClick={() => setSelectedDay(idx)}
-                    className={`flex-shrink-0 px-6 py-3 rounded-2xl border-2 transition-all font-black text-[10px] uppercase ${selectedDay === idx
-                        ? 'bg-orange-600 border-orange-600 text-white shadow-lg shadow-orange-100'
-                        : 'bg-white border-slate-100 text-slate-400 hover:border-orange-200'
+                    className={`flex-shrink-0 w-14 h-14 rounded-2xl border-2 transition-all font-black text-[12px] snap-center flex items-center justify-center ${selectedDay === idx
+                        ? 'bg-orange-600 border-orange-600 text-white shadow-xl shadow-orange-600/20 ring-4 ring-orange-600/10'
+                        : 'bg-slate-900 border-white/5 text-slate-500 hover:border-white/10 hover:text-slate-300'
                       }`}
                   >
                     D{day.day}
@@ -316,19 +310,19 @@ export default function App() {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-xs tracking-widest text-slate-400 font-black uppercase">LOGISTICS SUMMARY</h3>
+              <h3 className="text-xs tracking-widest text-slate-500 font-black uppercase">LOGISTICS SUMMARY</h3>
               {TICKETS.map((t, i) => {
                 const fromCity = (t.fromTerminal || t.legs?.[0]?.from || "").split('(')[0].trim();
                 const toCity = (t.toTerminal || t.legs?.[t.legs.length - 1]?.to || "").split('(')[0].trim();
                 return (
-                  <div key={i} onClick={() => setPage('flights')} className={`p-6 rounded-[2rem] border ${t.theme.border} ${t.theme.bg} flex justify-between items-center cursor-pointer hover:scale-[1.01] transition-transform shadow-sm`}>
-                    <div>
-                      <p className={`text-[8px] ${t.theme.accent} font-black uppercase`}>{t.airline} • {t.pnr}</p>
-                      <h4 className="text-2xl tracking-tighter font-black text-slate-900 uppercase">{t.route}</h4>
+                  <div key={i} onClick={() => setPage('flights')} className="p-6 rounded-[2rem] border border-white/5 bg-slate-900/50 flex justify-between items-center cursor-pointer hover:bg-slate-900 transition-all shadow-sm">
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[8px] text-orange-500 font-black tracking-widest uppercase truncate">{t.airline} • {t.pnr}</p>
+                      <h4 className="text-xl sm:text-2xl tracking-tighter font-black text-white uppercase truncate">{t.route}</h4>
                     </div>
-                    <div className="text-right">
-                      <p className="text-xs font-black text-slate-900 uppercase">{t.date}</p>
-                      <p className="text-[8px] opacity-50 font-black uppercase text-slate-500">
+                    <div className="text-right shrink-0 pl-4">
+                      <p className="text-xs font-black text-white uppercase">{t.date}</p>
+                      <p className="text-[8px] opacity-50 font-black uppercase text-slate-400 mt-1">
                         {fromCity} → {toCity}
                       </p>
                     </div>
@@ -342,58 +336,54 @@ export default function App() {
         {/* PLAN VIEW */}
         {page === 'plan' && (
           <div className="space-y-10 animate-in slide-in-from-bottom-8 duration-500">
-            {/* Header & Focus Selection */}
-            <div className="flex justify-between items-end">
-              <h2 className="text-4xl tracking-tighter font-black uppercase text-slate-900 leading-none uppercase">MISSION<br />PLANNER</h2>
-              <select value={selectedDay} onChange={(e) => setSelectedDay(Number(e.target.value))} className="bg-orange-600 text-white px-4 py-2 rounded-full text-[10px] outline-none font-black shadow-lg uppercase">
-                {EXPERT_ITINERARY.map((d, i) => <option key={i} value={i}>FOCUS: DAY {d.day}</option>)}
+            <div className="flex justify-between items-end gap-4">
+              <h2 className="text-4xl tracking-tighter font-black uppercase text-white leading-none">PLANNER</h2>
+              <select value={selectedDay} onChange={(e) => setSelectedDay(Number(e.target.value))} className="bg-slate-900 text-white px-5 py-3 rounded-2xl text-[11px] outline-none font-black shadow-xl border border-white/10 appearance-none uppercase">
+                {EXPERT_ITINERARY.map((d, i) => <option key={i} value={i}>DAY {d.day}</option>)}
               </select>
             </div>
 
             {/* Focused Sector Details */}
-            <div className="bg-white rounded-[2.5rem] border border-slate-100 p-8 space-y-6 shadow-sm">
-              <div className="flex gap-2">
-                <div className="flex-1 bg-slate-50 p-4 rounded-2xl flex justify-between items-center">
-                  <span className="text-[8px] text-slate-400 font-black uppercase">SECTOR RISK</span>
-                  <span className={`text-[10px] font-black uppercase ${activeDay.risk === 'EXTREME' || activeDay.risk === 'CRITICAL' ? 'text-red-600' : 'text-slate-900'}`}>{activeDay.risk}</span>
+            <div className="bg-slate-900/50 rounded-[3rem] border border-white/5 p-8 space-y-8">
+              <div className="flex gap-3">
+                <div className="flex-1 bg-slate-950 p-5 rounded-2xl flex justify-between items-center border border-white/5 text-center">
+                  <span className="text-[8px] text-slate-500 font-black uppercase tracking-widest">RISK</span>
+                  <span className={`text-[11px] font-black uppercase ${activeDay.risk === 'EXTREME' ? 'text-red-500' : 'text-white'}`}>{activeDay.risk}</span>
                 </div>
-                <div className="flex-1 bg-slate-50 p-4 rounded-2xl flex justify-between items-center">
-                  <span className="text-[8px] text-slate-400 font-black uppercase">DUR</span>
-                  <span className="text-[10px] font-black text-slate-900 uppercase">{activeDay.dur}</span>
+                <div className="flex-1 bg-slate-950 p-5 rounded-2xl flex justify-between items-center border border-white/5 text-center">
+                  <span className="text-[8px] text-slate-500 font-black uppercase tracking-widest">DUR</span>
+                  <span className="text-[11px] font-black text-white uppercase">{activeDay.dur}</span>
                 </div>
               </div>
 
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <h3 className="text-xs text-orange-600 font-black uppercase uppercase">ACTIVE MISSION OBJECTIVE</h3>
-                  <button onClick={getDayIntel} disabled={loadingIntel} className="text-[8px] bg-slate-900 text-white px-3 py-1 rounded-full font-black uppercase uppercase">
-                    {loadingIntel ? 'SYNCING...' : '✨ GET AI INTEL'}
+                  <h3 className="text-xs text-orange-500 font-black uppercase">OBJECTIVE</h3>
+                  <button onClick={getDayIntel} disabled={loadingIntel} className="text-[9px] bg-white text-slate-950 px-4 py-1.5 rounded-full font-black uppercase tracking-tighter hover:bg-orange-500 hover:text-white transition-all">
+                    {loadingIntel ? '...' : '✨ GET AI INTEL'}
                   </button>
                 </div>
-                <div className="relative group">
-                  <p className="text-sm normal-case font-medium text-slate-800 italic leading-relaxed uppercase border-l-4 border-orange-600 pl-4 py-1 uppercase">"{activeDay.plan}"</p>
-                </div>
+                <p className="text-base normal-case font-medium text-slate-200 italic leading-relaxed border-l-4 border-orange-600 pl-6 py-2 uppercase">"{activeDay.plan}"</p>
                 {aiIntel[selectedDay] && (
-                  <div className="p-5 bg-orange-50 rounded-3xl text-[10px] normal-case leading-relaxed font-bold border border-orange-100 animate-in fade-in uppercase text-slate-900 uppercase">
-                    <p className="text-[8px] text-orange-400 mb-1 tracking-widest uppercase">AI TACTICAL BRIEF</p>
+                  <div className="p-6 bg-orange-600/10 rounded-[2rem] text-[11px] font-bold border border-orange-600/20 animate-in fade-in text-orange-100 uppercase">
                     {aiIntel[selectedDay]}
                   </div>
                 )}
               </div>
 
-              <div className="space-y-2 pt-4 border-t border-slate-50">
-                <p className="text-[8px] text-slate-400 font-black uppercase tracking-widest mb-3 uppercase">MISSION TIMELINE</p>
+              <div className="space-y-3 pt-6 border-t border-white/5">
+                <p className="text-[9px] text-slate-500 font-black uppercase tracking-[0.3em] mb-4">MISSION TIMELINE</p>
                 {(activeDay.timeline || []).map((step, i) => {
                   const key = `d${selectedDay}-s${i}`;
                   return (
-                    <div key={i} onClick={() => toggleTask(key)} className={`flex items-center gap-4 p-4 rounded-2xl border transition-all cursor-pointer ${completedTasks[key] ? 'opacity-40 bg-slate-50' : 'bg-white hover:border-orange-600 group'}`}>
-                      <span className="text-xs min-w-[50px] opacity-60 font-black text-slate-900 uppercase uppercase">{step.time}</span>
-                      <div className="flex-1">
-                        <h4 className={`text-sm font-black uppercase text-slate-900 uppercase ${completedTasks[key] ? 'line-through' : ''}`}>{step.task}</h4>
-                        <p className="text-[8px] text-slate-500 font-black uppercase uppercase">{step.details}</p>
+                    <div key={i} onClick={() => toggleTask(key)} className={`flex items-center gap-6 p-6 rounded-3xl border transition-all cursor-pointer ${completedTasks[key] ? 'opacity-30 bg-slate-950/50 border-transparent' : 'bg-slate-900 border-white/5 hover:border-orange-600/50 group shadow-lg shadow-black/20'}`}>
+                      <span className="text-sm min-w-[60px] opacity-50 font-black text-slate-300 uppercase">{step.time}</span>
+                      <div className="flex-1 min-w-0">
+                        <h4 className={`text-lg font-black uppercase text-white truncate ${completedTasks[key] ? 'line-through decoration-orange-600' : ''}`}>{step.task}</h4>
+                        <p className="text-[10px] text-slate-500 font-black uppercase mt-0.5 truncate">{step.details}</p>
                       </div>
-                      <div className={`w-6 h-6 rounded-lg border flex items-center justify-center transition-colors ${completedTasks[key] ? 'bg-orange-600 border-orange-600' : 'border-slate-200 group-hover:border-orange-300'}`}>
-                        {completedTasks[key] && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="4"><polyline points="20 6 9 17 4 12" /></svg>}
+                      <div className={`w-8 h-8 rounded-xl border flex items-center justify-center transition-all ${completedTasks[key] ? 'bg-orange-600 border-orange-600 shadow-[0_0_15px_rgba(234,88,12,0.4)]' : 'border-white/10'}`}>
+                        {completedTasks[key] && <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="4"><polyline points="20 6 9 17 4 12" /></svg>}
                       </div>
                     </div>
                   );
@@ -401,155 +391,97 @@ export default function App() {
               </div>
             </div>
 
-            {/* CUMULATIVE MISSION TIMELINE CARDS */}
-            <div className="space-y-6 pt-4">
-              <div className="flex items-center gap-4">
-                <h3 className="text-xl tracking-tighter font-black uppercase text-slate-900 uppercase">CUMULATIVE ITINERARY</h3>
-                <div className="h-px bg-slate-200 flex-1"></div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {EXPERT_ITINERARY.map((item, idx) => (
-                  <div
-                    key={idx}
-                    onClick={() => {
-                      setSelectedDay(idx);
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                    className={`relative p-4 rounded-[2.5rem] border transition-all cursor-pointer flex gap-4 items-center group overflow-hidden ${selectedDay === idx ? 'border-orange-600 bg-orange-50/20 ring-1 ring-orange-600 shadow-lg' : 'border-slate-100 bg-white shadow-sm hover:border-orange-200 hover:shadow-md'}`}
-                  >
-                    {selectedDay === idx && <div className="absolute left-0 top-0 bottom-0 w-2 bg-orange-600"></div>}
-
-                    <div className="w-16 h-16 rounded-2xl overflow-hidden flex-shrink-0 border border-slate-100">
-                      <SafeImage src={item.image} alt={item.title} className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500" />
-                    </div>
-
-                    <div className="flex-1 min-w-0">
-                      <div className="flex justify-between items-start mb-0.5">
-                        <p className={`text-[8px] font-black uppercase tracking-widest uppercase ${selectedDay === idx ? 'text-orange-600' : 'text-slate-400'}`}>
-                          DAY {item.day} • {item.date}
-                        </p>
-                        {item.dham !== 'NONE' && (
-                          <span className="bg-orange-100 text-orange-700 text-[6px] px-1.5 py-0.5 rounded-full font-black uppercase uppercase">
-                            {item.dham}
-                          </span>
-                        )}
-                      </div>
-                      <h4 className="text-[13px] font-black text-slate-900 truncate uppercase leading-tight group-hover:text-orange-600 transition-colors uppercase uppercase">{item.title}</h4>
-                      <p className="text-[8px] text-slate-500 font-black truncate uppercase mt-1 uppercase">
-                        {item.risk} RISK • {item.dur}
-                      </p>
-                    </div>
-
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center border transition-all ${selectedDay === idx ? 'bg-orange-600 border-orange-600 text-white' : 'border-slate-100 text-slate-300 group-hover:border-orange-600 group-hover:text-orange-600'}`}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 12h14m-7-7l7 7-7 7" /></svg>
-                    </div>
+            {/* CUMULATIVE CARDS */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {EXPERT_ITINERARY.map((item, idx) => (
+                <div key={idx} onClick={() => { setSelectedDay(idx); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className={`p-5 rounded-[2.5rem] border transition-all cursor-pointer flex gap-4 items-center group overflow-hidden ${selectedDay === idx ? 'border-orange-600 bg-orange-600/5 shadow-2xl' : 'border-white/5 bg-slate-900 hover:border-white/20'}`}>
+                  <div className="w-14 h-14 rounded-2xl overflow-hidden shrink-0">
+                    <SafeImage src={item.image} alt="Sector" className={`w-full h-full transition-all duration-700 ${selectedDay === idx ? '' : 'grayscale group-hover:grayscale-0'}`} />
                   </div>
-                ))}
-              </div>
+                  <div className="flex-1 min-w-0">
+                    <p className={`text-[8px] font-black uppercase tracking-widest ${selectedDay === idx ? 'text-orange-500' : 'text-slate-500'}`}>DAY {item.day} • {item.date}</p>
+                    <h4 className="text-sm font-black text-white truncate uppercase">{item.title}</h4>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}
 
         {/* FLIGHTS VIEW */}
         {page === 'flights' && (
-          <div className="space-y-8 animate-in fade-in duration-500">
-            <h2 className="text-4xl tracking-tighter font-black uppercase text-slate-900 uppercase">AIR LOGISTICS</h2>
-
+          <div className="space-y-10 animate-in fade-in duration-500">
+            <h2 className="text-4xl tracking-tighter font-black uppercase text-white">FLIGHTS</h2>
             <div className="space-y-12">
               {TICKETS.map((ticket, tIdx) => (
-                <div key={tIdx} className={`rounded-[3rem] overflow-hidden border shadow-xl ${ticket.theme.bg} ${ticket.theme.border}`}>
-                  <div className={`p-8 text-white flex justify-between items-center ${ticket.theme.header}`}>
+                <div key={tIdx} className="rounded-[3.5rem] overflow-hidden border border-white/5 bg-slate-900/30 shadow-2xl">
+                  <div className={`p-10 text-white flex justify-between items-center ${ticket.theme.header}`}>
                     <div>
-                      <p className="text-[10px] opacity-70 tracking-widest font-black uppercase uppercase">{tIdx === 0 ? 'ONWARD MISSION' : 'RETURN MISSION'}</p>
-                      <h3 className="text-3xl tracking-tighter font-black uppercase text-slate-900 uppercase text-white">{ticket.airline}</h3>
+                      <p className="text-[10px] opacity-70 tracking-widest font-black uppercase">{tIdx === 0 ? 'ONWARD' : 'RETURN'}</p>
+                      <h3 className="text-4xl tracking-tighter font-black uppercase text-white">{ticket.airline}</h3>
                     </div>
                     <div className="text-right">
-                      <p className="text-[10px] opacity-70 font-black uppercase uppercase">PNR STATUS</p>
-                      <h3 className="text-3xl tracking-tighter font-black uppercase text-slate-900 uppercase text-white">{ticket.pnr}</h3>
+                      <p className="text-[10px] opacity-70 font-black uppercase">PNR</p>
+                      <h3 className="text-4xl tracking-tighter font-black text-white uppercase">{ticket.pnr}</h3>
                     </div>
                   </div>
-
-                  <div className="p-8 space-y-8">
-                    {/* Passenger Manifest */}
-                    <div className="space-y-3">
-                      <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase uppercase">PASSENGER MANIFEST</p>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="p-6 sm:p-10 space-y-10">
+                    <div className="space-y-4">
+                      <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase">PASSENGER MANIFEST</p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {REG_DATA.pax.map((p, pIdx) => (
-                          <div key={pIdx} className="bg-white/50 backdrop-blur p-4 rounded-2xl border border-black/5 flex justify-between items-center">
+                          <div key={pIdx} className="bg-slate-950 p-6 rounded-[2rem] border border-white/5 flex justify-between items-center">
                             <div>
-                              <p className="text-[10px] font-black uppercase text-slate-900 uppercase">{p.name}</p>
-                              <p className="text-[8px] text-slate-500 font-black uppercase uppercase">
-                                E-TKT: {tIdx === 0 ? p.etickets.indigo : p.etickets.airindia}
-                              </p>
+                              <p className="text-sm font-black uppercase text-white">{p.name}</p>
+                              <p className="text-[10px] text-slate-500 font-black uppercase mt-1">E-TKT: {tIdx === 0 ? p.etickets.indigo : p.etickets.airindia}</p>
                             </div>
-                            <div className="text-right">
-                              <p className="text-[8px] text-orange-600 font-black uppercase uppercase">{p.meal}</p>
-                              <p className="text-[7px] text-slate-400 font-black uppercase uppercase">VERIFIED</p>
-                            </div>
+                            <p className="text-[10px] text-orange-500 font-black uppercase">{p.meal}</p>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    {/* Legs */}
                     <div className="space-y-4">
-                      <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase uppercase">FLIGHT SEGMENTS</p>
-                      {ticket.legs ? (
-                        ticket.legs.map((leg, lIdx) => (
-                          <div key={lIdx} className="bg-white/30 p-6 rounded-2xl border border-black/5 flex justify-between items-center">
-                            <div>
-                              <p className="text-[8px] text-slate-500 uppercase font-black uppercase">FLIGHT {leg.flight}</p>
-                              <h4 className="text-xl tracking-tighter font-black uppercase text-slate-900 uppercase">{leg.from} → {leg.to}</h4>
-                              <p className="text-[8px] opacity-60 mt-1 uppercase font-black text-slate-500 uppercase">{leg.fromTerminal} TO {leg.toTerminal}</p>
-                            </div>
-                            <div className="text-right">
-                              <p className="text-[10px] font-black uppercase text-slate-900 uppercase">{leg.dep} - {leg.arr}</p>
-                              <p className="text-[8px] text-slate-400 font-black uppercase uppercase">SCHEDULED</p>
-                            </div>
+                      <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase">FLIGHT SEGMENTS</p>
+                      {(ticket.legs || [ticket]).map((leg, lIdx) => (
+                        <div key={lIdx} className="bg-slate-900 p-8 rounded-3xl border border-white/5 flex justify-between items-center">
+                          <div className="min-w-0 flex-1 pr-4">
+                            <p className="text-[9px] text-slate-500 uppercase font-black tracking-widest">FLIGHT {leg.flight}</p>
+                            <h4 className="text-2xl tracking-tighter font-black uppercase text-white mt-1 truncate">{leg.from} → {leg.to}</h4>
+                            <p className="text-[10px] opacity-40 mt-1 uppercase font-black text-slate-400 truncate">{leg.fromTerminal} TO {leg.toTerminal}</p>
                           </div>
-                        ))
-                      ) : (
-                        <div className="bg-white/30 p-6 rounded-2xl border border-black/5 flex justify-between items-center">
-                          <div>
-                            <p className="text-[8px] text-slate-500 uppercase font-black uppercase">FLIGHT {ticket.flight}</p>
-                            <h4 className="text-xl tracking-tighter font-black uppercase text-slate-900 uppercase">{ticket.route}</h4>
-                            <p className="text-[8px] opacity-60 mt-1 uppercase font-black text-slate-500 uppercase">{(ticket.fromTerminal || '---')} TO {(ticket.toTerminal || '---')}</p>
-                          </div>
-                          <div className="text-right">
-                            <p className="text-[10px] font-black uppercase text-slate-900 uppercase">{ticket.dep} - {ticket.arr}</p>
-                            <p className="text-[8px] text-slate-400 font-black uppercase uppercase">NON-STOP</p>
+                          <div className="text-right shrink-0">
+                            <p className="text-xl font-black uppercase text-white">{leg.dep} - {leg.arr}</p>
+                            <p className="text-[10px] text-orange-500 font-black uppercase tracking-widest mt-1">SCHEDULED</p>
                           </div>
                         </div>
-                      )}
+                      ))}
                     </div>
 
-                    {/* Baggage Info */}
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="bg-white/40 p-4 rounded-2xl border border-black/5">
-                        <p className="text-[8px] text-slate-500 font-black uppercase uppercase">CABIN BAGGAGE</p>
-                        <p className="text-[11px] font-black text-slate-900 uppercase uppercase">{ticket.baggage?.cabin || '7 KGS'} / PAX</p>
+                      <div className="bg-slate-950 p-6 rounded-3xl border border-white/5">
+                        <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest">CABIN</p>
+                        <p className="text-lg font-black text-white uppercase mt-1">{ticket.baggage?.cabin}</p>
                       </div>
-                      <div className="bg-white/40 p-4 rounded-2xl border border-black/5">
-                        <p className="text-[8px] text-slate-500 font-black uppercase uppercase">CHECK-IN BAGGAGE</p>
-                        <p className="text-[11px] font-black text-slate-900 uppercase uppercase">{ticket.baggage?.checkin || '15 KGS'} / PAX</p>
+                      <div className="bg-slate-950 p-6 rounded-3xl border border-white/5">
+                        <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest">CHECK-IN</p>
+                        <p className="text-lg font-black text-white uppercase mt-1">{ticket.baggage?.checkin}</p>
                       </div>
                     </div>
 
-                    {/* Lounges */}
-                    <div className="space-y-3">
-                      <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase uppercase">LOUNGE CLEARANCE</p>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="space-y-4">
+                      <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase">LOUNGE CLEARANCE</p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {(ticket.lounges || []).map((lounge, lIdx) => (
-                          <div key={lIdx} className="bg-white p-5 rounded-2xl border border-black/5 shadow-sm">
-                            <div className="flex justify-between items-start mb-2">
-                              <h5 className="text-[11px] font-black uppercase text-slate-900 uppercase">{lounge.name}</h5>
-                              <span className="text-[8px] bg-orange-100 text-orange-600 px-2 py-0.5 rounded-md font-black uppercase">{lounge.rating} ★</span>
+                          <div key={lIdx} className="bg-slate-900/50 p-6 rounded-3xl border border-white/5 shadow-lg">
+                            <div className="flex justify-between items-start mb-3">
+                              <h5 className="text-sm font-black uppercase text-white tracking-tight">{lounge.name}</h5>
+                              <span className="text-[9px] bg-orange-600 text-white px-2 py-0.5 rounded-lg font-black">{lounge.rating} ★</span>
                             </div>
-                            <p className="text-[9px] text-slate-500 mb-3 font-black uppercase uppercase">{lounge.loc}</p>
-                            <div className="flex flex-wrap gap-1">
+                            <p className="text-[11px] text-slate-400 mb-4 font-black uppercase">{lounge.loc}</p>
+                            <div className="flex flex-wrap gap-1.5">
                               {lounge.facilities?.map((f, fIdx) => (
-                                <span key={fIdx} className="text-[7px] border border-slate-200 px-1.5 py-0.5 rounded uppercase font-black text-slate-500 uppercase">{f}</span>
+                                <span key={fIdx} className="text-[8px] border border-white/10 bg-white/5 px-2 py-0.5 rounded uppercase font-black text-slate-500">{f}</span>
                               ))}
                             </div>
                           </div>
@@ -565,20 +497,19 @@ export default function App() {
 
         {/* ROUTE VIEW */}
         {page === 'route' && (
-          <div className="space-y-8 animate-in fade-in">
-            <h2 className="text-4xl tracking-tighter font-black uppercase text-slate-900 uppercase">MASTER ROADMAP</h2>
-            <div className="space-y-4">
+          <div className="space-y-10 animate-in fade-in">
+            <h2 className="text-4xl tracking-tighter font-black uppercase text-white">MASTER ROADMAP</h2>
+            <div className="space-y-6">
               {MASTER_ROADMAP.map((leg, i) => (
-                <div key={i} className="bg-white p-6 rounded-[2rem] border border-slate-100 flex gap-6 items-start shadow-sm">
-                  <div className="w-12 h-12 bg-orange-600 rounded-xl flex items-center justify-center text-white flex-shrink-0 font-black uppercase uppercase">{leg.day}</div>
-                  <div className="flex-1">
-                    <div className="flex justify-between items-start">
-                      <h4 className="text-xl tracking-tighter font-black uppercase text-slate-900 uppercase uppercase">{leg.route}</h4>
-                      <p className="text-[10px] text-orange-600 font-black uppercase uppercase">{leg.dist}</p>
+                <div key={i} className="bg-slate-900/50 p-8 rounded-[3rem] border border-white/5 flex gap-8 items-start shadow-xl">
+                  <div className="w-14 h-14 bg-orange-600 rounded-2xl flex items-center justify-center text-white flex-shrink-0 font-black text-xl shadow-lg shadow-orange-600/20">{leg.day}</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex justify-between items-start gap-2">
+                      <h4 className="text-2xl tracking-tighter font-black uppercase text-white truncate">{leg.route}</h4>
+                      <p className="text-sm text-orange-500 font-black uppercase tracking-widest whitespace-nowrap">{leg.dist}</p>
                     </div>
-                    <p className="text-[9px] text-slate-500 mb-2 font-black uppercase uppercase">{leg.time}</p>
-                    <p className="text-[10px] normal-case text-slate-600 mb-4 font-black uppercase uppercase">"{leg.detail}"</p>
-                    <button onClick={() => window.open(`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(leg.start)}&destination=${encodeURIComponent(leg.end)}`)} className="bg-slate-900 text-white px-4 py-2 rounded-lg text-[9px] tracking-widest font-black uppercase uppercase">OPEN DIRECTIONS</button>
+                    <p className="text-[11px] text-slate-500 mb-4 font-black uppercase tracking-widest">{leg.time}</p>
+                    <button onClick={() => window.open(`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(leg.start)}&destination=${encodeURIComponent(leg.end)}`)} className="bg-white text-slate-950 px-6 py-3 rounded-xl text-[10px] tracking-widest font-black uppercase hover:bg-orange-600 hover:text-white transition-all w-full sm:w-auto">OPEN NAV SYSTEM</button>
                   </div>
                 </div>
               ))}
@@ -588,26 +519,22 @@ export default function App() {
 
         {/* EXPLORE VIEW */}
         {page === 'explore' && (
-          <div className="space-y-8 animate-in fade-in">
-            <h2 className="text-4xl tracking-tighter font-black uppercase text-slate-900 uppercase">LOCAL RECON</h2>
-            <div className="flex gap-2">
-              <input value={explore.query} onChange={e => setExplore({ ...explore, query: e.target.value })} className="flex-1 bg-white border border-slate-100 rounded-2xl px-6 py-4 outline-none font-black uppercase text-slate-900 uppercase" placeholder="SEARCH SECTOR (E.G. BARKOT)..." />
-              <button onClick={searchExplore} className="bg-orange-600 text-white px-8 rounded-2xl font-black uppercase uppercase">
-                {explore.loading ? <LoadingPulse /> : 'GO'}
-              </button>
+          <div className="space-y-10 animate-in fade-in">
+            <h2 className="text-4xl tracking-tighter font-black uppercase text-white">LOCAL RECON</h2>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <input value={explore.query} onChange={e => setExplore({ ...explore, query: e.target.value })} className="flex-1 bg-slate-900 border border-white/5 rounded-2xl px-8 py-5 outline-none font-black uppercase text-white shadow-xl focus:border-orange-600/50 transition-all" placeholder="SEARCH AREA (E.G. BARKOT)..." />
+              <button onClick={searchExplore} className="bg-orange-600 text-white px-10 py-5 rounded-2xl font-black uppercase shadow-xl shadow-orange-600/20 active:scale-95 transition-transform">GO</button>
             </div>
-
             {explore.results && (
               <div className="grid gap-4">
                 {explore.results.map((spot, i) => (
-                  <div key={i} className="bg-white p-6 rounded-[2rem] border border-slate-100 flex justify-between items-center shadow-sm">
-                    <div>
-                      <p className="text-[9px] text-orange-600 font-black uppercase uppercase">RATING: {spot.rating} ★</p>
-                      <h4 className="text-xl tracking-tighter font-black uppercase text-slate-900 uppercase">{spot.name}</h4>
-                      <p className="text-[10px] normal-case text-slate-500 mt-1 font-black uppercase uppercase">{spot.desc}</p>
+                  <div key={i} className="bg-slate-900 p-8 rounded-[3rem] border border-white/5 flex justify-between items-center shadow-xl">
+                    <div className="pr-4 min-w-0">
+                      <p className="text-[10px] text-orange-500 font-black uppercase tracking-widest">RATING: {spot.rating} ★</p>
+                      <h4 className="text-2xl tracking-tighter font-black uppercase text-white mt-1 leading-tight">{spot.name}</h4>
                     </div>
-                    <button onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.name + ' ' + explore.query)}`)} className="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center text-white">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M12 2v20m10-10H2" /></svg>
+                    <button onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.name + ' ' + explore.query)}`)} className="w-14 h-14 bg-slate-950 rounded-full flex items-center justify-center text-white border border-white/5 hover:border-orange-500/50 transition-all shadow-inner shrink-0">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4"><path d="M12 2v20m10-10H2" /></svg>
                     </button>
                   </div>
                 ))}
@@ -618,91 +545,52 @@ export default function App() {
 
         {/* PASS VIEW */}
         {page === 'pass' && (
-          <div className="max-w-md mx-auto animate-in zoom-in duration-500 space-y-6">
-            <div className="bg-white rounded-[3.5rem] shadow-2xl overflow-hidden border border-orange-100">
-              <div className="bg-slate-950 p-8 text-center text-white">
-                <p className="text-[8px] opacity-50 tracking-[0.5em] mb-1 font-black uppercase uppercase">VERIFIED MISSION ID</p>
-                <h2 className="text-2xl tracking-tighter font-black uppercase uppercase">PILGRIM MANIFEST</h2>
+          <div className="max-w-md mx-auto animate-in zoom-in duration-500 space-y-6 pb-20">
+            <div className="bg-slate-900 rounded-[4rem] shadow-2xl overflow-hidden border border-white/5">
+              <div className="bg-slate-950 p-10 text-center text-white border-b border-white/5">
+                <p className="text-[10px] opacity-30 tracking-[0.5em] mb-2 font-black uppercase">VERIFIED MISSION ID</p>
+                <h2 className="text-3xl tracking-tighter font-black uppercase">PILGRIM MANIFEST</h2>
               </div>
-
-              <div className="p-8 space-y-10">
-                <div className="flex justify-between items-end border-b border-slate-100 pb-6">
+              <div className="p-8 space-y-12">
+                <div className="flex justify-between items-end border-b border-white/5 pb-8">
                   <div>
-                    <p className="text-[8px] text-slate-400 font-black uppercase uppercase">REGISTRATION NO</p>
-                    <p className="text-2xl text-orange-600 tracking-tighter font-black uppercase uppercase">{REG_DATA.no}</p>
+                    <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">REGISTRATION NO</p>
+                    <p className="text-3xl text-orange-500 font-black uppercase mt-1">{REG_DATA.no}</p>
                   </div>
-                  <div className="text-right">
-                    <p className="text-[8px] text-slate-400 uppercase font-black uppercase">STATUS</p>
-                    <p className="text-[10px] bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-black uppercase uppercase">ACTIVE</p>
+                  <p className="text-[11px] bg-emerald-500/10 text-emerald-500 px-4 py-1.5 rounded-full font-black uppercase tracking-widest border border-emerald-500/20 shrink-0">ACTIVE</p>
+                </div>
+
+                <div className="space-y-6 bg-slate-950 p-8 rounded-[2.5rem] border border-white/5 shadow-inner">
+                  <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">DETAILS</p>
+                  <div className="grid grid-cols-2 gap-6">
+                    <div><p className="text-[8px] text-slate-600 font-black uppercase">GROUP ID</p><p className="text-sm font-black uppercase text-white mt-1">{REG_DATA.groupId}</p></div>
+                    <div><p className="text-[8px] text-slate-600 font-black uppercase">MODE</p><p className="text-sm font-black text-orange-500 uppercase mt-1">HELI</p></div>
+                    <div className="col-span-2 border-t border-white/5 pt-4"><p className="text-[8px] text-slate-600 font-black uppercase">EMERGENCY</p><p className="text-sm font-black uppercase text-white mt-1">{REG_DATA.emergency.name} • {REG_DATA.emergency.phone}</p></div>
                   </div>
                 </div>
 
-                <div className="space-y-4 bg-slate-50 p-6 rounded-3xl border border-slate-100">
-                  <p className="text-[8px] text-slate-400 font-black uppercase tracking-widest uppercase">REGISTRATION DETAILS</p>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <p className="text-[7px] text-slate-400 font-black uppercase uppercase">GROUP ID</p>
-                      <p className="text-[10px] font-black uppercase text-slate-900 uppercase">{REG_DATA.groupId}</p>
-                    </div>
-                    <div>
-                      <p className="text-[7px] text-slate-400 font-black uppercase uppercase">TRAVEL MODE</p>
-                      <p className="text-[10px] font-black text-orange-600 uppercase uppercase">{REG_DATA.travelMode}</p>
-                    </div>
-                    <div className="col-span-2">
-                      <p className="text-[7px] text-slate-400 font-black uppercase uppercase">EMERGENCY CONTACT</p>
-                      <p className="text-[10px] font-black uppercase text-slate-900 uppercase">{REG_DATA.emergency.name} ({REG_DATA.emergency.relation})</p>
-                      <p className="text-[10px] font-black uppercase text-slate-900 uppercase">{REG_DATA.emergency.phone}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-8">
+                <div className="space-y-10">
                   {REG_DATA.pax.map((p, i) => (
-                    <div key={i} className="space-y-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-slate-900 text-white rounded-full flex items-center justify-center text-[10px] font-black uppercase uppercase">{i + 1}</div>
-                        <h4 className="text-xl tracking-tighter font-black uppercase text-slate-900 uppercase">{p.name}</h4>
+                    <div key={i} className="space-y-6">
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 bg-white text-slate-950 rounded-2xl flex items-center justify-center text-xs font-black uppercase shadow-lg">{i + 1}</div>
+                        <h4 className="text-2xl tracking-tighter font-black uppercase text-white">{p.name}</h4>
                       </div>
-
-                      <div className="grid grid-cols-2 gap-4 pl-11">
-                        <div>
-                          <p className="text-[8px] text-slate-400 font-black uppercase uppercase">ID: {p.idType}</p>
-                          <p className="text-[10px] tracking-widest font-black uppercase text-slate-900 uppercase">{p.idNo}</p>
-                        </div>
-                        <div>
-                          <p className="text-[8px] text-slate-400 font-black uppercase uppercase">GENDER</p>
-                          <p className="text-[10px] tracking-widest font-black uppercase text-slate-900 uppercase">{p.gender}</p>
-                        </div>
-                        <div className="bg-white border border-slate-100 p-2 rounded-xl">
-                          <p className="text-[7px] text-slate-400 font-black uppercase uppercase">INDIGO E-TKT</p>
-                          <p className="text-[10px] font-black uppercase text-slate-900 uppercase">{p.etickets?.indigo || '---'}</p>
-                        </div>
-                        <div className="bg-white border border-slate-100 p-2 rounded-xl">
-                          <p className="text-[7px] text-slate-400 font-black uppercase uppercase">AIR INDIA E-TKT</p>
-                          <p className="text-[10px] font-black uppercase text-slate-900 uppercase">{p.etickets?.airindia || '---'}</p>
-                        </div>
+                      <div className="grid grid-cols-2 gap-6 pl-14">
+                        <div><p className="text-[9px] text-slate-600 font-black uppercase tracking-widest">ID</p><p className="text-xs tracking-widest font-black uppercase text-slate-300 mt-1">{p.idNo}</p></div>
+                        <div><p className="text-[9px] text-slate-600 font-black uppercase tracking-widest">GENDER</p><p className="text-xs tracking-widest font-black uppercase text-slate-300 mt-1">{p.gender}</p></div>
+                        <div className="bg-slate-950 p-4 rounded-2xl border border-white/5"><p className="text-[8px] text-slate-600 font-black uppercase">INDIGO</p><p className="text-xs font-black uppercase text-white mt-1">{p.etickets.indigo}</p></div>
+                        <div className="bg-slate-950 p-4 rounded-2xl border border-white/5"><p className="text-[8px] text-slate-600 font-black uppercase">AIR INDIA</p><p className="text-xs font-black uppercase text-white mt-1">{p.etickets.airindia}</p></div>
                       </div>
                     </div>
                   ))}
                 </div>
 
-                <div className="bg-orange-50/50 p-6 rounded-[2rem] border border-orange-100">
-                  <p className="text-[8px] text-orange-400 tracking-[0.3em] mb-3 uppercase font-black uppercase">DHAM ENTRY WINDOWS</p>
-                  <div className="grid grid-cols-1 gap-2">
-                    {Object.entries(REG_DATA.dates).map(([d, date]) => (
-                      <div key={d} className="flex justify-between items-center border-b border-orange-100/50 py-1.5 last:border-0 font-black text-slate-900 uppercase">
-                        <span className="text-[9px] opacity-60 uppercase">{d}</span>
-                        <span className="text-[11px] font-black uppercase uppercase">{date}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex flex-col items-center border-t border-slate-100 pt-8 space-y-4 font-black">
-                  <div className="w-48 h-48 bg-slate-50 rounded-3xl overflow-hidden p-2 border-4 border-white shadow-inner">
+                <div className="flex flex-col items-center border-t border-white/5 pt-10 space-y-6">
+                  <div className="w-48 h-48 bg-white rounded-[2rem] overflow-hidden p-2 border-8 border-slate-950 shadow-2xl">
                     <img src={IMAGES.qrPlaceholder} className="w-full h-full mix-blend-multiply" alt="QR" />
                   </div>
-                  <p className="text-[7px] text-slate-400 tracking-widest uppercase font-black uppercase">SCAN AT CHECKPOINTS</p>
+                  <p className="text-[9px] text-slate-600 tracking-[0.4em] uppercase font-black">SCAN AT CHECKPOINTS</p>
                 </div>
               </div>
             </div>
@@ -711,13 +599,32 @@ export default function App() {
 
       </main>
 
-      {/* FOOTER NAV */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-lg bg-slate-950/95 backdrop-blur-2xl p-1.5 rounded-full shadow-2xl flex justify-between items-center z-[100] border border-white/10 font-black">
-        {['home', 'plan', 'flights', 'route', 'explore', 'pass'].map(p => (
-          <button key={p} onClick={() => setPage(p)} className={`flex-1 py-3.5 rounded-full text-[7px] tracking-widest transition-all uppercase font-black ${page === p ? 'bg-orange-600 text-white' : 'text-slate-500'}`}>
-            {p === 'pass' ? 'ID' : p.toUpperCase()}
-          </button>
-        ))}
+      {/* FOOTER NAV - FIXED & MOBILE OPTIMIZED */}
+      <div className="fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-3xl z-[200] border-t border-white/5 h-20 sm:h-24 pb-safe-area-inset-bottom">
+        <div className="grid grid-cols-6 h-full max-w-lg mx-auto px-2">
+          {['home', 'plan', 'flights', 'route', 'explore', 'pass'].map(p => (
+            <button
+              key={p}
+              onClick={() => setPage(p)}
+              className={`flex flex-col items-center justify-center gap-1.5 transition-all duration-300 relative ${page === p ? 'text-orange-500' : 'text-slate-500 hover:text-slate-300'}`}
+            >
+              <div className={`transition-transform duration-300 ${page === p ? 'scale-110' : 'scale-100'}`}>
+                {p === 'home' && <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg>}
+                {p === 'plan' && <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /></svg>}
+                {p === 'flights' && <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3" /></svg>}
+                {p === 'route' && <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2" /></svg>}
+                {p === 'explore' && <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>}
+                {p === 'pass' && <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>}
+              </div>
+              <span className="text-[7px] font-black uppercase tracking-tighter text-center">
+                {p === 'pass' ? 'ID' : p.toUpperCase()}
+              </span>
+              {page === p && (
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-6 h-1 bg-orange-600 rounded-full shadow-[0_0_8px_rgba(234,88,12,0.8)]"></div>
+              )}
+            </button>
+          ))}
+        </div>
       </div>
 
     </div>
