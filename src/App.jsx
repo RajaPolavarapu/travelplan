@@ -402,8 +402,20 @@ export default function App() {
                   </div>
                   <div className="px-3 py-1.5 rounded-xl border border-white/10 bg-slate-800/80 backdrop-blur-md text-[9px] font-black tracking-widest text-slate-100 uppercase">
                     {activeDay.risk} RISK
-                  </div>
-                                              <p className="text-2xl font-black text-white">₹{ticket.payment.total.toLocaleString()}</p>
+                  </div>                           </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* ── Payment (Indigo ticket only, shared booking) ── */}
+                    {ticket.payment && (
+                      <div className="space-y-3">
+                        <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase">PAYMENT</p>
+                        <div className="bg-slate-950 rounded-3xl border border-white/5 overflow-hidden">
+                          <div className="flex justify-between items-center px-6 py-5 border-b border-white/5">
+                            <p className="text-[10px] text-slate-500 font-black uppercase">TOTAL AMOUNT</p>
+                            <p className="text-2xl font-black text-white">₹{ticket.payment.total.toLocaleString()}</p>
                           </div>
                           <div className="flex justify-between items-center px-6 py-4 border-b border-white/5">
                             <p className="text-[10px] text-slate-500 font-black uppercase">PAID BY</p>
@@ -810,5 +822,4 @@ export default function App() {
     </div>
   );
 }
-
           
