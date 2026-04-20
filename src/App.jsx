@@ -81,15 +81,33 @@ const TICKETS = [
     airline: "INDIGO",
     pnr: "SY6YYJ",
     route: "HYD - DED",
+    direction: "ONWARD",
     flight: "6E 422",
-    date: "22 MAY 2026",
-    dep: "10:25",
-    arr: "12:50",
-    fromTerminal: "HYD (RAJIV GANDHI INTL)",
-    toTerminal: "DED (JOLLY GRANT)",
+    date: "FRI, 22 MAY 2026",
+    bookedOn: "15 APR 2026",
     bookingId: "NF7AKPSX64440584043",
-    baggage: { cabin: "7 KGS", checkin: "15 KGS" },
-    theme: { bg: "bg-indigo-950/40", border: "border-indigo-500/30", text: "text-indigo-100", accent: "text-indigo-400", header: "bg-indigo-600" },
+    duration: "02H 25M",
+    stops: "NON-STOP",
+    fareClass: "SAVER REGULAR • ECONOMY",
+    baggage: { cabin: "7 KGS (1 PC)", checkin: "15 KGS (1 PC)" },
+    theme: { header: "bg-indigo-600" },
+    legs: [
+      {
+        flight: "6E 422",
+        from: "HYD", to: "DED",
+        dep: "10:25", arr: "12:50",
+        depDate: "FRI, 22 MAY", arrDate: "FRI, 22 MAY",
+        fromTerminal: "RAJIV GANDHI INTL AIRPORT",
+        toTerminal: "JOLLY GRANT AIRPORT",
+        duration: "02H 25M",
+        layover: null,
+        pax: [
+          { name: "MR RAJA POLAVARAPU", seat: "TBA", meal: "—", eticket: "SY6YYJ" },
+          { name: "MS SANDHYA RANI SATYAVARAPU", seat: "TBA", meal: "—", eticket: "SY6YYJ" }
+        ]
+      }
+    ],
+    payment: { total: 39856, paid: 39856, method: "CREDIT CARD", saved: 1200, coupon: "MMTSUPER" },
     lounges: [
       { name: "ENCALM LOUNGE", loc: "HYD T1 (DEPARTURE)", rating: "4.5", facilities: ["WiFi", "Buffet", "AC", "Charging", "Flight Radar"] }
     ]
@@ -98,17 +116,98 @@ const TICKETS = [
     airline: "AIR INDIA",
     pnr: "7RMF3R",
     route: "DED - VTZ",
-    date: "28 MAY 2026",
-    baggage: { cabin: "7 KGS", checkin: "15 KGS" },
-    theme: { bg: "bg-red-950/40", border: "border-red-500/30", text: "text-red-100", accent: "text-red-400", header: "bg-red-600" },
-    lounges: [
-      { name: "BIRD LOUNGE", loc: "DED MAIN (DEP)", rating: "3.8", facilities: ["WiFi", "Comfort Seats", "Gourmet Snacks"] },
-      { name: "ENCALM T3", loc: "DEL T3 (ARR/TRANSIT)", rating: "4.3", facilities: ["Showers", "Sleep Pods", "Full Buffet", "Bar"] },
-      { name: "ENCALM T2", loc: "DEL T2 (DEP)", rating: "4.0", facilities: ["WiFi", "Hot Meals", "AC"] }
-    ],
+    direction: "RETURN",
+    date: "THU, 28 MAY 2026",
+    bookedOn: "15 APR 2026",
+    bookingId: "NF7AKPSX64440584043",
+    duration: "03H 20M",
+    stops: "1 STOP • DEL",
+    baggage: { cabin: "7 KGS (1 PC)", checkin: "15 KGS" },
+    theme: { header: "bg-red-700" },
     legs: [
-      { flight: "AI 2908", from: "DED", to: "DEL", dep: "13:30", arr: "14:30", fromTerminal: "DED MAIN", toTerminal: "DEL T3" },
-      { flight: "AI 1702", from: "DEL", to: "VTZ", dep: "18:30", arr: "20:50", fromTerminal: "DEL T2", toTerminal: "VTZ MAIN" }
+      {
+        flight: "AI 2908",
+        from: "DED", to: "DEL",
+        dep: "13:30", arr: "14:30",
+        depDate: "THU, 28 MAY", arrDate: "THU, 28 MAY",
+        fromTerminal: "JOLLY GRANT AIRPORT",
+        toTerminal: "INDIRA GANDHI INTL • T3",
+        duration: "01H 00M",
+        fareClass: "ECO VALUE REGULAR • ECONOMY",
+        baggage: { cabin: "7 KGS (1 PC)", checkin: "15 KGS" },
+        layover: null,
+        pax: [
+          { name: "MR RAJA POLAVARAPU", seat: "TBA", meal: "NON-VEG", eticket: "5896003140" },
+          { name: "MS SANDHYA RANI SATYAVARAPU", seat: "TBA", meal: "VEGETARIAN", eticket: "5896003141" }
+        ]
+      },
+      {
+        flight: "AI 1702",
+        from: "DEL", to: "VTZ",
+        dep: "18:30", arr: "20:50",
+        depDate: "THU, 28 MAY", arrDate: "THU, 28 MAY",
+        fromTerminal: "INDIRA GANDHI INTL • T2",
+        toTerminal: "VISAKHAPATNAM INTL AIRPORT",
+        duration: "02H 20M",
+        fareClass: "ECO VALUE REGULAR • ECONOMY",
+        baggage: { cabin: "7 KGS (1 PC)", checkin: "15 KGS" },
+        layover: { duration: "4H LAYOVER AT DEL", notes: ["CHANGE OF PLANES", "CHANGE OF TERMINAL (T3 → T2)"] },
+        pax: [
+          { name: "MR RAJA POLAVARAPU", seat: "TBA", meal: "NON-VEG", eticket: "5896003140" },
+          { name: "MS SANDHYA RANI SATYAVARAPU", seat: "TBA", meal: "VEGETARIAN", eticket: "5896003141" }
+        ]
+      }
+    ],
+    lounges: [
+      { name: "BIRD LOUNGE", loc: "DED JOLLY GRANT (DEPARTURE)", rating: "3.8", facilities: ["WiFi", "Comfort Seats", "Gourmet Snacks"] },
+      { name: "ENCALM T3", loc: "DEL T3 (ARRIVAL / TRANSIT)", rating: "4.3", facilities: ["Showers", "Sleep Pods", "Full Buffet", "Bar"] },
+      { name: "ENCALM T2", loc: "DEL T2 (DEPARTURE)", rating: "4.0", facilities: ["WiFi", "Hot Meals", "AC"] }
+    ]
+  }
+];
+
+// --- HOTEL BOOKINGS DATA ---
+const HOTEL_BOOKINGS = [
+  {
+    id: "NH79209479436472",
+    pnr: "0174469860",
+    status: "CONFIRMED",
+    property: "THE HOSTELLER RISHIKESH GANGES",
+    type: "HOSTEL",
+    stars: 3,
+    address: "DHARMA YATRI NIWAS, LAXMAN JHULA, 249302",
+    city: "RISHIKESH",
+    email: "RESERVATIONS@THEHOSTELLER.COM",
+    phone: "9810187717",
+    checkIn: { date: "FRI, 22 MAY 2026", time: "02:00 PM" },
+    checkOut: { date: "SAT, 23 MAY 2026", time: "11:00 AM" },
+    nights: 1,
+    guests: 2,
+    primaryGuest: "MR. RAJA POLAVARAPU +1",
+    roomType: "STANDARD DOUBLE ROOM",
+    mealPlan: "ROOM ONLY",
+    amenities: ["HOUSEKEEPING", "TOILETRIES", "TV", "WI-FI"],
+    payment: {
+      total: 3636,
+      status: "PAID",
+      breakdown: [
+        { label: "ACCOMMODATION (INCL. TAXES)", amount: 3916 },
+        { label: "MMT SERVICE FEE", amount: 298 },
+        { label: "MMT REVERSAL DISCOUNT", amount: -298 },
+        { label: "PROMO DISCOUNT", amount: -280 },
+      ]
+    },
+    cancellation: "FREE CANCELLATION TILL 15 MAY 2026, 01:59 PM",
+    day: 1,
+    theme: { accent: "text-emerald-400", badge: "bg-emerald-500/10 border-emerald-500/20 text-emerald-400", bar: "bg-emerald-600" },
+    rules: [
+      "CARRY VALID PHOTO ID (PAN CARD NOT VALID)",
+      "AADHAR, PASSPORT, DRIVING LICENSE ACCEPTED",
+      "SMOKING ALLOWED ONLY IN OUTDOOR AREAS",
+      "ALCOHOL & DRUGS STRICTLY PROHIBITED",
+      "NO PARTIES OR EVENTS ON PREMISES",
+      "CAFE OPEN: 9AM–2PM & 6PM–11PM",
+      "PARKING NOT AVAILABLE (PAID PARKING 200M AWAY)"
     ]
   }
 ];
@@ -191,6 +290,7 @@ export default function App() {
   const [aiIntel, setAiIntel] = useState({});
   const [loadingIntel, setLoadingIntel] = useState(false);
   const [explore, setExplore] = useState({ query: "", results: null, loading: false });
+  const [expandedRules, setExpandedRules] = useState(false);
 
   const activeDay = EXPERT_ITINERARY[selectedDay] || EXPERT_ITINERARY[0];
   const appId = typeof __app_id !== 'undefined' ? __app_id : 'chardham-vault-2026';
@@ -367,6 +467,20 @@ export default function App() {
                   </div>
                 );
               })}
+
+              {/* Hotel quick-link on home */}
+              {HOTEL_BOOKINGS.map((h, i) => (
+                <div key={i} onClick={() => setPage('hotel')} className="p-6 rounded-[2rem] border border-white/5 bg-slate-900/50 flex justify-between items-center cursor-pointer hover:bg-slate-900 transition-all shadow-sm">
+                  <div className="min-w-0 flex-1 text-left">
+                    <p className="text-[9px] text-emerald-400 font-black tracking-widest uppercase truncate">HOTEL • {h.pnr}</p>
+                    <h4 className="text-xl sm:text-2xl tracking-tighter font-black text-white uppercase truncate">{h.city} STAY</h4>
+                  </div>
+                  <div className="text-right shrink-0 pl-4 border-l border-white/5 ml-4">
+                    <p className="text-[11px] font-black text-white leading-none">22 MAY</p>
+                    <p className="text-[9px] opacity-40 font-black uppercase mt-1.5 tracking-tighter">1 NIGHT</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}
@@ -444,91 +558,216 @@ export default function App() {
           </div>
         )}
 
-        {/* FLIGHTS VIEW - STANDARDIZED ALIGNMENT */}
+        {/* FLIGHTS VIEW */}
         {page === 'flights' && (
           <div className="space-y-10 animate-in fade-in duration-500 pb-20 text-left">
-            <h2 className="text-4xl tracking-tighter font-black uppercase text-white">AIR LOGISTICS</h2>
-            <div className="space-y-12">
+            {/* Page header + booking summary */}
+            <div className="space-y-1">
+              <h2 className="text-4xl tracking-tighter font-black uppercase text-white">AIR LOGISTICS</h2>
+              <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">BOOKING ID: NF7AKPSX64440584043 • BOOKED 15 APR 2026</p>
+            </div>
+
+            {/* Payment summary banner */}
+            <div className="bg-slate-900 rounded-[2rem] border border-white/5 p-6 flex flex-col sm:flex-row justify-between gap-4 items-start sm:items-center">
+              <div className="text-left">
+                <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest">TOTAL PAID • CREDIT CARD</p>
+                <p className="text-3xl font-black text-white mt-1">₹39,856</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)] shrink-0"></div>
+                <p className="text-[10px] text-emerald-400 font-black uppercase tracking-widest">SAVED ₹1,200 WITH MMTSUPER COUPON</p>
+              </div>
+            </div>
+
+            <div className="space-y-14">
               {TICKETS.map((ticket, tIdx) => (
                 <div key={tIdx} className="rounded-[3rem] overflow-hidden border border-white/5 bg-slate-900/30 shadow-2xl text-left">
-                  <div className={`p-10 text-white flex justify-between items-center ${ticket.theme.header}`}>
+
+                  {/* ── Ticket Header ── */}
+                  <div className={`p-8 sm:p-10 text-white flex justify-between items-start gap-4 ${ticket.theme.header}`}>
                     <div className="min-w-0 text-left">
-                      <p className="text-[10px] opacity-70 tracking-widest font-black uppercase">{tIdx === 0 ? 'ONWARD' : 'RETURN'}</p>
+                      <p className="text-[10px] opacity-70 tracking-widest font-black uppercase">{ticket.direction} FLIGHT</p>
                       <h3 className="text-3xl sm:text-4xl tracking-tighter font-black uppercase text-white leading-none truncate pr-2">{ticket.airline}</h3>
+                      <p className="text-[10px] opacity-60 font-black uppercase mt-1.5 tracking-wider">{ticket.route} • {ticket.date}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-[10px] opacity-70 font-black uppercase">PNR</p>
-                      <h3 className="text-3xl sm:text-4xl tracking-tighter font-black text-white uppercase leading-none">{ticket.pnr}</h3>
+                      <p className="text-[9px] opacity-70 font-black uppercase">PNR</p>
+                      <h3 className="text-2xl sm:text-3xl tracking-tighter font-black text-white uppercase leading-none">{ticket.pnr}</h3>
+                      <p className="text-[9px] opacity-60 font-black uppercase mt-1">{ticket.stops}</p>
                     </div>
                   </div>
-                  <div className="p-6 sm:p-10 space-y-10 text-left">
-                    <div className="space-y-4">
-                      <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase">PASSENGER MANIFEST</p>
-                      <div className="grid grid-cols-1 gap-3">
-                        {REG_DATA.pax.map((p, pIdx) => (
-                          <div key={pIdx} className="bg-slate-950 p-6 rounded-[2rem] border border-white/5 flex justify-between items-center">
-                            <div className="min-w-0 flex-1 text-left">
-                              <p className="text-sm font-black uppercase text-white truncate pr-2">{p.name}</p>
-                              <p className="text-[10px] text-slate-500 font-black uppercase mt-1">E-TKT: {tIdx === 0 ? p.etickets.indigo : p.etickets.airindia}</p>
-                            </div>
-                            <div className="shrink-0 text-right">
-                              <p className="text-[10px] text-orange-500 font-black uppercase">{p.meal}</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
 
-                    <div className="space-y-4 text-left">
+                  <div className="p-6 sm:p-10 space-y-10">
+
+                    {/* ── Flight Segments ── */}
+                    <div className="space-y-4">
                       <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase">FLIGHT SEGMENTS</p>
-                      {(ticket.legs || [ticket]).map((leg, lIdx) => (
-                        <div key={lIdx} className="bg-slate-900 p-6 sm:p-8 rounded-3xl border border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-lg">
-                          <div className="min-w-0 flex-1 text-left">
-                            <p className="text-[10px] text-slate-500 uppercase font-black tracking-widest">FLIGHT {leg.flight}</p>
-                            <h4 className="text-2xl tracking-tighter font-black uppercase text-white mt-1 leading-none">{leg.from} → {leg.to}</h4>
-                            <p className="text-[10px] opacity-40 mt-2 uppercase font-black text-slate-400 truncate">{leg.fromTerminal || ticket.fromTerminal}</p>
-                          </div>
-                          <div className="flex justify-between sm:block text-right shrink-0 border-t sm:border-t-0 border-white/5 pt-4 sm:pt-0">
-                            <p className="text-2xl font-black uppercase text-white leading-none">{leg.dep} - {leg.arr}</p>
-                            <p className="text-[11px] text-orange-500 font-black uppercase tracking-widest mt-2 uppercase">SCHEDULED</p>
+
+                      {ticket.legs.map((leg, lIdx) => (
+                        <div key={lIdx}>
+                          {/* Layover warning between legs */}
+                          {leg.layover && (
+                            <div className="mb-4 mx-2">
+                              <div className="bg-amber-500/10 border border-amber-500/20 rounded-2xl px-5 py-4 space-y-2">
+                                <div className="flex items-center gap-3">
+                                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2.5"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>
+                                  <p className="text-[10px] text-amber-400 font-black uppercase tracking-widest">{leg.layover.duration}</p>
+                                </div>
+                                {leg.layover.notes.map((n, ni) => (
+                                  <div key={ni} className="flex items-center gap-3 pl-5">
+                                    <div className="w-1 h-1 rounded-full bg-amber-500/60 shrink-0"></div>
+                                    <p className="text-[9px] text-amber-300/70 font-black uppercase">{n}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Segment card */}
+                          <div className="bg-slate-900 rounded-3xl border border-white/5 overflow-hidden shadow-lg">
+                            {/* Segment top bar */}
+                            <div className="px-6 py-4 border-b border-white/5 flex justify-between items-center">
+                              <div className="flex items-center gap-3">
+                                <span className="text-[10px] text-orange-500 font-black uppercase tracking-widest">FLIGHT {leg.flight}</span>
+                                {leg.fareClass && <span className="text-[8px] border border-white/10 bg-slate-950 px-2 py-1 rounded font-black uppercase text-slate-500">{leg.fareClass}</span>}
+                              </div>
+                              <span className="text-[9px] text-slate-500 font-black uppercase">{leg.duration}</span>
+                            </div>
+
+                            {/* Dep / Arr */}
+                            <div className="grid grid-cols-2 divide-x divide-white/5 p-6 sm:p-8">
+                              <div className="pr-6 text-left">
+                                <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest mb-1">DEPARTURE</p>
+                                <p className="text-4xl font-black text-white leading-none">{leg.dep}</p>
+                                <p className="text-lg font-black text-orange-500 uppercase mt-1">{leg.from}</p>
+                                <p className="text-[9px] text-slate-500 font-black uppercase mt-2 leading-relaxed">{leg.fromTerminal}</p>
+                                <p className="text-[9px] text-slate-600 font-black uppercase mt-1">{leg.depDate}</p>
+                              </div>
+                              <div className="pl-6 text-right">
+                                <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest mb-1">ARRIVAL</p>
+                                <p className="text-4xl font-black text-white leading-none">{leg.arr}</p>
+                                <p className="text-lg font-black text-orange-500 uppercase mt-1">{leg.to}</p>
+                                <p className="text-[9px] text-slate-500 font-black uppercase mt-2 leading-relaxed">{leg.toTerminal}</p>
+                                <p className="text-[9px] text-slate-600 font-black uppercase mt-1">{leg.arrDate}</p>
+                              </div>
+                            </div>
+
+                            {/* Per-leg baggage */}
+                            <div className="border-t border-white/5 px-6 py-4 grid grid-cols-2 gap-4">
+                              <div className="text-left">
+                                <p className="text-[8px] text-slate-600 font-black uppercase">CABIN</p>
+                                <p className="text-xs font-black text-white uppercase mt-0.5">{(leg.baggage || ticket.baggage)?.cabin}</p>
+                              </div>
+                              <div className="text-left">
+                                <p className="text-[8px] text-slate-600 font-black uppercase">CHECK-IN</p>
+                                <p className="text-xs font-black text-white uppercase mt-0.5">{(leg.baggage || ticket.baggage)?.checkin}</p>
+                              </div>
+                            </div>
+
+                            {/* Per-leg passenger manifest */}
+                            <div className="border-t border-white/5 px-6 pb-6 pt-4 space-y-3">
+                              <p className="text-[8px] text-slate-600 font-black uppercase tracking-widest mb-2">PASSENGERS</p>
+                              {leg.pax.map((p, pi) => (
+                                <div key={pi} className="bg-slate-950 rounded-2xl px-5 py-4 flex justify-between items-center border border-white/5">
+                                  <div className="min-w-0 flex-1 text-left">
+                                    <p className="text-[11px] font-black uppercase text-white truncate pr-3">{p.name}</p>
+                                    <p className="text-[9px] text-slate-500 font-black uppercase mt-1">E-TKT: {p.eticket}</p>
+                                  </div>
+                                  <div className="text-right shrink-0">
+                                    <p className={`text-[9px] font-black uppercase ${p.meal === 'VEGETARIAN' ? 'text-emerald-400' : p.meal === 'NON-VEG' ? 'text-orange-400' : 'text-slate-500'}`}>{p.meal}</p>
+                                    <p className="text-[9px] text-slate-600 font-black uppercase mt-1">SEAT: {p.seat}</p>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
                           </div>
                         </div>
                       ))}
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="bg-slate-950 p-6 rounded-3xl border border-white/5 text-left">
-                        <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest uppercase">CABIN</p>
-                        <p className="text-xl font-black text-white uppercase mt-1">{ticket.baggage?.cabin}</p>
-                      </div>
-                      <div className="bg-slate-950 p-6 rounded-3xl border border-white/5 text-left">
-                        <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest uppercase">CHECK-IN</p>
-                        <p className="text-xl font-black text-white uppercase mt-1">{ticket.baggage?.checkin}</p>
-                      </div>
-                    </div>
-
-                    <div className="space-y-4 text-left">
-                      <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase uppercase">LOUNGE CLEARANCE</p>
-                      <div className="grid grid-cols-1 gap-4">
-                        {(ticket.lounges || []).map((lounge, lIdx) => (
-                          <div key={lIdx} className="bg-slate-900/50 p-6 rounded-3xl border border-white/5 shadow-lg text-left">
-                            <div className="flex justify-between items-start mb-3">
-                              <h5 className="text-sm font-black uppercase text-white tracking-tight pr-4">{lounge.name}</h5>
-                              <span className="text-[10px] bg-orange-600 text-white px-3 py-0.5 rounded-lg font-black whitespace-nowrap">{lounge.rating} ★</span>
-                            </div>
-                            <p className="text-[11px] text-slate-400 mb-4 font-black uppercase">{lounge.loc}</p>
-                            <div className="flex flex-wrap gap-2">
-                              {lounge.facilities?.map((f, fIdx) => (
-                                <span key={fIdx} className="text-[9px] border border-white/10 bg-slate-950 px-3 py-1 rounded uppercase font-black text-slate-500">{f}</span>
-                              ))}
-                            </div>
+                    {/* ── Payment (Indigo ticket only, shared booking) ── */}
+                    {ticket.payment && (
+                      <div className="space-y-3">
+                        <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase">PAYMENT</p>
+                        <div className="bg-slate-950 rounded-3xl border border-white/5 overflow-hidden">
+                          <div className="flex justify-between items-center px-6 py-5 border-b border-white/5">
+                            <p className="text-[10px] text-slate-500 font-black uppercase">TOTAL AMOUNT</p>
+                            <p className="text-2xl font-black text-white">₹{ticket.payment.total.toLocaleString()}</p>
                           </div>
-                        ))}
+                          <div className="flex justify-between items-center px-6 py-4 border-b border-white/5">
+                            <p className="text-[10px] text-slate-500 font-black uppercase">PAID BY</p>
+                            <p className="text-sm font-black text-white uppercase">{ticket.payment.method}</p>
+                          </div>
+                          <div className="flex justify-between items-center px-6 py-4 bg-emerald-700/10">
+                            <p className="text-[10px] text-emerald-400 font-black uppercase">YOU SAVED</p>
+                            <p className="text-sm font-black text-emerald-400 uppercase">₹{ticket.payment.saved} • {ticket.payment.coupon}</p>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    )}
+
+                    {/* ── Lounge Access ── */}
+                    {ticket.lounges?.length > 0 && (
+                      <div className="space-y-4 text-left">
+                        <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase">LOUNGE CLEARANCE</p>
+                        <div className="grid grid-cols-1 gap-4">
+                          {ticket.lounges.map((lounge, lIdx) => (
+                            <div key={lIdx} className="bg-slate-900/50 p-6 rounded-3xl border border-white/5 shadow-lg text-left">
+                              <div className="flex justify-between items-start mb-3">
+                                <h5 className="text-sm font-black uppercase text-white tracking-tight pr-4">{lounge.name}</h5>
+                                <span className="text-[10px] bg-orange-600 text-white px-3 py-0.5 rounded-lg font-black whitespace-nowrap">{lounge.rating} ★</span>
+                              </div>
+                              <p className="text-[11px] text-slate-400 mb-4 font-black uppercase">{lounge.loc}</p>
+                              <div className="flex flex-wrap gap-2">
+                                {lounge.facilities?.map((f, fIdx) => (
+                                  <span key={fIdx} className="text-[9px] border border-white/10 bg-slate-950 px-3 py-1 rounded uppercase font-black text-slate-500">{f}</span>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* ── Important Info ── */}
+            <div className="bg-slate-900/50 rounded-[2.5rem] border border-white/5 p-8 space-y-5">
+              <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase">IMPORTANT REMINDERS</p>
+              {[
+                "WEB CHECK-IN BOARDING PASS AVAILABLE WITHIN 6 HRS OF DEPARTURE",
+                "MAX 1 CHECK-IN BAG + 1 CABIN BAG PER PASSENGER",
+                "CARRY VALID PHOTO ID — AADHAAR, DRIVING LICENSE OR GOVT ID",
+                "INR 100/PAX NON-REFUNDABLE SURCHARGE ON CANCELLATION",
+                "DIGI YATRA — PRE-VERIFY AADHAAR FOR FACE-SCAN CHECK-IN"
+              ].map((info, i) => (
+                <div key={i} className="flex items-start gap-4">
+                  <div className="w-1.5 h-1.5 rounded-full bg-orange-600 shrink-0 mt-1.5"></div>
+                  <p className="text-[10px] text-slate-400 font-black uppercase leading-relaxed">{info}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* ── Airline Contacts ── */}
+            <div className="space-y-3">
+              <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase">AIRLINE CONTACTS</p>
+              <div className="grid grid-cols-1 gap-3">
+                {[
+                  { name: "INDIGO", numbers: ["0124-6173838", "0124-4973838"] },
+                  { name: "AIR INDIA", numbers: ["+91 11 6932 9333", "+91 11 6932 9999"] },
+                  { name: "MAKEMYTRIP", numbers: ["0124-4628747", "0124-5045105"] }
+                ].map((c, i) => (
+                  <div key={i} className="bg-slate-900 rounded-2xl border border-white/5 px-6 py-4 flex justify-between items-center">
+                    <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{c.name}</p>
+                    <div className="text-right">
+                      {c.numbers.map((n, ni) => <p key={ni} className="text-[10px] font-black text-white uppercase">{n}</p>)}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}
@@ -644,27 +883,211 @@ export default function App() {
           </div>
         )}
 
+        {/* ═══════════════════════════════════════════════
+            HOTEL VIEW — NEW PAGE
+        ═══════════════════════════════════════════════ */}
+        {page === 'hotel' && (
+          <div className="space-y-10 animate-in fade-in duration-500 pb-20 text-left">
+            <h2 className="text-4xl tracking-tighter font-black uppercase text-white">ACCOMMODATION</h2>
+
+            {HOTEL_BOOKINGS.map((hotel, hIdx) => (
+              <div key={hIdx} className="rounded-[3rem] overflow-hidden border border-white/5 bg-slate-900/30 shadow-2xl text-left">
+
+                {/* ── Header Bar ── */}
+                <div className="p-8 sm:p-10 bg-emerald-700 flex justify-between items-start gap-4">
+                  <div className="min-w-0 text-left">
+                    <p className="text-[10px] opacity-70 tracking-widest font-black uppercase">DAY {hotel.day} STAY</p>
+                    <h3 className="text-2xl sm:text-3xl tracking-tighter font-black uppercase text-white leading-tight pr-2">{hotel.property}</h3>
+                    <p className="text-[10px] opacity-60 font-black uppercase mt-1 tracking-wider">{'★'.repeat(hotel.stars)} {hotel.type}</p>
+                  </div>
+                  <div className="shrink-0 text-right">
+                    <p className="text-[9px] opacity-70 font-black uppercase">STATUS</p>
+                    <span className="text-[11px] bg-white/20 border border-white/30 text-white px-4 py-1.5 rounded-full font-black uppercase tracking-widest whitespace-nowrap mt-1 inline-block">
+                      {hotel.status}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-6 sm:p-10 space-y-10">
+
+                  {/* ── Booking IDs ── */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-slate-950 p-6 rounded-[2rem] border border-white/5 text-left">
+                      <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest">BOOKING ID</p>
+                      <p className="text-sm font-black text-white uppercase mt-1 break-all leading-snug">{hotel.id}</p>
+                    </div>
+                    <div className="bg-slate-950 p-6 rounded-[2rem] border border-white/5 text-left">
+                      <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest">TICKET PNR</p>
+                      <p className="text-xl font-black text-emerald-400 uppercase mt-1 leading-none">{hotel.pnr}</p>
+                    </div>
+                  </div>
+
+                  {/* ── Check-in / Check-out ── */}
+                  <div className="space-y-3">
+                    <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase">STAY WINDOW</p>
+                    <div className="bg-slate-900 rounded-3xl border border-white/5 overflow-hidden">
+                      <div className="grid grid-cols-2 divide-x divide-white/5">
+                        <div className="p-6 sm:p-8 text-left">
+                          <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest mb-2">CHECK-IN</p>
+                          <p className="text-base font-black text-white uppercase leading-snug">{hotel.checkIn.date}</p>
+                          <p className="text-2xl font-black text-emerald-400 mt-1 leading-none">{hotel.checkIn.time}</p>
+                        </div>
+                        <div className="p-6 sm:p-8 text-left">
+                          <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest mb-2">CHECK-OUT</p>
+                          <p className="text-base font-black text-white uppercase leading-snug">{hotel.checkOut.date}</p>
+                          <p className="text-2xl font-black text-slate-400 mt-1 leading-none">{hotel.checkOut.time}</p>
+                        </div>
+                      </div>
+                      <div className="border-t border-white/5 px-6 py-4 flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></div>
+                        <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{hotel.nights} NIGHT • {hotel.guests} GUESTS</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* ── Guest & Room ── */}
+                  <div className="space-y-3">
+                    <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase">ROOM ASSIGNMENT</p>
+                    <div className="bg-slate-950 p-6 sm:p-8 rounded-3xl border border-white/5 space-y-5 text-left">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className="text-[9px] text-slate-600 font-black uppercase">PRIMARY GUEST</p>
+                          <p className="text-base font-black uppercase text-white mt-1 leading-none">{hotel.primaryGuest}</p>
+                        </div>
+                        <span className="text-[9px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-3 py-1.5 rounded-xl font-black uppercase">CLEARED</span>
+                      </div>
+                      <div className="border-t border-white/5 pt-5 grid grid-cols-2 gap-4">
+                        <div>
+                          <p className="text-[9px] text-slate-600 font-black uppercase">ROOM TYPE</p>
+                          <p className="text-sm font-black uppercase text-white mt-1">{hotel.roomType}</p>
+                        </div>
+                        <div>
+                          <p className="text-[9px] text-slate-600 font-black uppercase">MEAL PLAN</p>
+                          <p className="text-sm font-black uppercase text-orange-400 mt-1">{hotel.mealPlan}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* ── Amenities ── */}
+                  <div className="space-y-3">
+                    <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase">ROOM AMENITIES</p>
+                    <div className="flex flex-wrap gap-2">
+                      {hotel.amenities.map((a, i) => (
+                        <span key={i} className="text-[9px] border border-white/10 bg-slate-950 px-4 py-2 rounded-xl font-black uppercase text-slate-400">{a}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* ── Payment Breakdown ── */}
+                  <div className="space-y-3">
+                    <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase">PAYMENT DETAILS</p>
+                    <div className="bg-slate-950 rounded-3xl border border-white/5 overflow-hidden">
+                      {hotel.payment.breakdown.map((item, i) => (
+                        <div key={i} className={`flex justify-between items-center px-6 py-4 ${i < hotel.payment.breakdown.length - 1 ? 'border-b border-white/5' : ''}`}>
+                          <p className="text-[10px] text-slate-500 font-black uppercase tracking-wide pr-4">{item.label}</p>
+                          <p className={`text-sm font-black uppercase whitespace-nowrap ${item.amount < 0 ? 'text-emerald-400' : 'text-white'}`}>
+                            {item.amount < 0 ? `- ₹${Math.abs(item.amount)}` : `₹${item.amount}`}
+                          </p>
+                        </div>
+                      ))}
+                      <div className="flex justify-between items-center px-6 py-5 bg-emerald-700/20 border-t-2 border-emerald-600/30">
+                        <p className="text-sm text-white font-black uppercase tracking-widest">TOTAL PAID</p>
+                        <p className="text-2xl font-black text-emerald-400 uppercase">₹{hotel.payment.total}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 px-2">
+                      <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)] shrink-0"></div>
+                      <p className="text-[9px] text-emerald-500 font-black uppercase tracking-widest">FULL AMOUNT PAID • NO BALANCE DUE</p>
+                    </div>
+                  </div>
+
+                  {/* ── Cancellation ── */}
+                  <div className="bg-amber-500/10 border border-amber-500/20 rounded-3xl p-6 flex gap-4 items-start">
+                    <svg className="shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2.5"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>
+                    <div className="text-left">
+                      <p className="text-[9px] text-amber-500 font-black uppercase tracking-widest mb-1">CANCELLATION POLICY</p>
+                      <p className="text-[11px] text-amber-200 font-black uppercase leading-relaxed">{hotel.cancellation}</p>
+                    </div>
+                  </div>
+
+                  {/* ── Contact ── */}
+                  <div className="space-y-3">
+                    <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase">PROPERTY CONTACT</p>
+                    <div className="grid grid-cols-1 gap-3">
+                      <a href={`tel:${hotel.phone}`} className="bg-slate-900 p-5 rounded-2xl border border-white/5 flex justify-between items-center hover:border-emerald-600/40 transition-all group">
+                        <div className="text-left">
+                          <p className="text-[9px] text-slate-600 font-black uppercase">PHONE</p>
+                          <p className="text-base font-black text-white uppercase mt-1">{hotel.phone}</p>
+                        </div>
+                        <svg className="text-slate-600 group-hover:text-emerald-500 transition-colors shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.09 19.79 19.79 0 0 1 1.61 4.5 2 2 0 0 1 3.6 2.33h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.06 6.06l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
+                      </a>
+                      <div className="bg-slate-900 p-5 rounded-2xl border border-white/5 text-left">
+                        <p className="text-[9px] text-slate-600 font-black uppercase">EMAIL</p>
+                        <p className="text-[11px] font-black text-slate-300 uppercase mt-1 break-all">{hotel.email}</p>
+                      </div>
+                      <div className="bg-slate-900 p-5 rounded-2xl border border-white/5 text-left">
+                        <p className="text-[9px] text-slate-600 font-black uppercase">ADDRESS</p>
+                        <p className="text-[11px] font-black text-slate-300 uppercase mt-1 leading-relaxed">{hotel.address}, {hotel.city}</p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(hotel.property + ' ' + hotel.city)}`)}
+                      className="bg-slate-800 text-slate-300 border border-white/10 px-6 py-4 rounded-2xl text-[12px] font-black uppercase hover:bg-emerald-600 hover:text-white transition-all w-full tracking-widest"
+                    >
+                      NAVIGATE TO PROPERTY
+                    </button>
+                  </div>
+
+                  {/* ── Property Rules ── */}
+                  <div className="space-y-3">
+                    <button
+                      onClick={() => setExpandedRules(r => !r)}
+                      className="w-full flex justify-between items-center text-left"
+                    >
+                      <p className="text-[10px] tracking-widest text-slate-500 font-black uppercase">PROPERTY RULES</p>
+                      <svg className={`text-slate-600 transition-transform duration-300 ${expandedRules ? 'rotate-180' : ''}`} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="6 9 12 15 18 9" /></svg>
+                    </button>
+                    {expandedRules && (
+                      <div className="space-y-2 animate-in fade-in duration-300">
+                        {hotel.rules.map((rule, i) => (
+                          <div key={i} className="flex items-start gap-4 bg-slate-950 px-5 py-4 rounded-2xl border border-white/5">
+                            <div className="w-1.5 h-1.5 rounded-full bg-slate-600 shrink-0 mt-1.5"></div>
+                            <p className="text-[10px] text-slate-400 font-black uppercase leading-relaxed">{rule}</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
       </main>
 
-      {/* FOOTER NAV - FULLY STABILIZED */}
+      {/* FOOTER NAV */}
       <div className="fixed bottom-0 left-0 right-0 bg-slate-900/98 backdrop-blur-3xl z-[300] border-t border-white/5 h-20 sm:h-24 pb-safe-area-inset-bottom">
-        <div className="grid grid-cols-6 h-full max-w-lg mx-auto px-1">
-          {['home', 'plan', 'flights', 'route', 'explore', 'pass'].map(p => (
+        <div className="grid grid-cols-7 h-full max-w-lg mx-auto px-1">
+          {['home', 'plan', 'flights', 'hotel', 'route', 'explore', 'pass'].map(p => (
             <button
               key={p}
               onClick={() => setPage(p)}
               className={`flex flex-col items-center justify-center gap-1.5 transition-all duration-300 relative ${page === p ? 'text-orange-500' : 'text-slate-500 hover:text-slate-300'}`}
             >
               <div className={`transition-transform duration-300 ${page === p ? 'scale-110 -translate-y-1' : 'scale-100'}`}>
-                {p === 'home' && <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg>}
-                {p === 'plan' && <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /></svg>}
-                {p === 'flights' && <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2" /></svg>}
-                {p === 'route' && <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" /></svg>}
-                {p === 'explore' && <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>}
-                {p === 'pass' && <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>}
+                {p === 'home' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg>}
+                {p === 'plan' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /></svg>}
+                {p === 'flights' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2" /></svg>}
+                {p === 'hotel' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><rect x="9" y="13" width="6" height="8" /></svg>}
+                {p === 'route' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" /></svg>}
+                {p === 'explore' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>}
+                {p === 'pass' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>}
               </div>
               <span className="text-[7px] font-black uppercase tracking-tighter text-center w-full truncate px-0.5">
-                {p === 'pass' ? 'ID' : p.toUpperCase()}
+                {p === 'pass' ? 'ID' : p === 'hotel' ? 'HOTEL' : p.toUpperCase()}
               </span>
               {page === p && (
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-6 h-1 bg-orange-600 rounded-full shadow-[0_0_12px_rgba(234,88,12,1)]"></div>
